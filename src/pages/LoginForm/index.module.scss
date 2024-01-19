@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(./img/1.png);
+    //background-image: url(./img/1.png);
     background-size: cover;
   }
 
@@ -57,7 +57,7 @@
   input,
   button {
     font-size: 2rem;
-    font-family: '优设标题黑';
+    font-family: 'Times New Roman', sans-serif;
     color: var(--inputColor);
   }
 

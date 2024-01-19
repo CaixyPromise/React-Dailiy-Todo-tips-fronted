@@ -8,7 +8,6 @@ import SearchResults from "../Routes/SearchResults";
 import TaskOnly from "../Routes/TaskOnly";
 import TodaysTasks from "../Routes/TodaysTasks";
 import HeaderTasks from "./HeaderTasks";
-import Footer from "../Footer";
 
 
 const TasksSection: React.FC = () =>

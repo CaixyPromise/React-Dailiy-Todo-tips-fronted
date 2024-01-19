@@ -1,5 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import LoginForm from "../pages/LoginForm";
+import RequiredLogin from "../components/CheckLogin";
+import App from "../App";
 
 const router = createBrowserRouter([
     {
@@ -8,6 +10,13 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
+        element: <RequiredLogin children={<App />} />,
+        children: [
+            {
+                path: "",
+                element: <div>Home</div>
+            }
+        ]
         // element:
     }
 ])

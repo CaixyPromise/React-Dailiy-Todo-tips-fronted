@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {currentUser} from "./index";
 import {UserControllerService, UserLoginRequest} from "../../../services/requests";
-import {DispatchEvent} from "../../../typings";
 
 const initialState: currentUser = {
     loginUser: null
