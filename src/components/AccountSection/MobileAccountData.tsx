@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {menusActions} from "../../store/Menu.store";
+import {menusActions} from "../../store/modules/Menu/Menu.store";
 import {GameHooks} from "./HookState";
 
 import {ReactComponent as GameBar} from "../../assets/gameboy.svg";

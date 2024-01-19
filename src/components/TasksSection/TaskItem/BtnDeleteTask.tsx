@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useAppDispatch} from "../../../store/hooks";
-import {tasksActions} from "../../../store/Tasks.store";
+import {tasksActions} from "../../../store/modules/Task/Tasks.store";
 import ModalConfirm from "../../Utilities/ModalConfirm";
 import {ReactComponent as Trash} from "../../../assets/trash.svg";
 

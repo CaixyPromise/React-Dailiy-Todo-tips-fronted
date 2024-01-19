@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { tasksActions } from "../../../store/Tasks.store";
+import { tasksActions } from "../../../store/modules/Task/Tasks.store";
 import ModalDirectory from "../../Utilities/ModalDirectory";
 import ItemDirectory from "./ItemDirectory";
 

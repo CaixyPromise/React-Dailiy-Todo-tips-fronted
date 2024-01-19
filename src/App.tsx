@@ -5,8 +5,9 @@ import TasksSection from "./components/TasksSection/TasksSection";
 import ModalCreateTask from "./components/Utilities/ModalTask";
 import {Task} from "./interfaces";
 import {useAppDispatch, useAppSelector} from "./store/hooks";
-import {modalActions} from "./store/Modal.store";
-import {tasksActions} from "./store/Tasks.store";
+import {modalActions} from "./store/modules/Modal/Modal.store";
+import {tasksActions} from "./store/modules/Task/Tasks.store";
+
 
 const App: React.FC = () =>
 {

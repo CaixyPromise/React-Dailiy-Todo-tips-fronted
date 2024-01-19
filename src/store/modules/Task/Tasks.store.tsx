@@ -1,11 +1,5 @@
-import {
-    Action,
-    createSlice,
-    Dispatch,
-    MiddlewareAPI,
-    PayloadAction,
-} from "@reduxjs/toolkit";
-import {Task} from "../interfaces";
+import {Action, createSlice, Dispatch, MiddlewareAPI, PayloadAction,} from "@reduxjs/toolkit";
+import {Task} from "../../../interfaces";
 
 const defaultTasks: Task[] = [
     {
@@ -76,10 +70,9 @@ const tasksSlice = createSlice({
         },
         removeTask(state, action)
         {
-            const newTasksList = state.tasks.filter(
+            state.tasks = state.tasks.filter(
                 (task) => task.id !== action.payload
             );
-            state.tasks = newTasksList;
         },
         markAsImportant(state, action: PayloadAction<string>)
         {

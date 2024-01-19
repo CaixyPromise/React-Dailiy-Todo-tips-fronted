@@ -4,7 +4,7 @@ import {ReactComponent as MenuIcon} from "../../assets/menu.svg";
 import AppsIcon from '@mui/icons-material/Apps';
 import SearchField from "./SearchField";
 import {useAppDispatch} from "../../store/hooks";
-import {menusActions} from "../../store/Menu.store";
+import {menusActions} from "../../store/modules/Menu/Menu.store";
 import Notification from "./Notification";
 import DarkMode from "../AccountSection/DarkMode";
 import TasksDone from "../AccountSection/TasksDone";

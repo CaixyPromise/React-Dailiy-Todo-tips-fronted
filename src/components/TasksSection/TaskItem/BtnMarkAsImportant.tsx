@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../../../store/hooks";
-import { tasksActions } from "../../../store/Tasks.store";
+import { tasksActions } from "../../../store/modules/Task/Tasks.store";
 import { ReactComponent as StarLine } from "../../../assets/star-line.svg";
 
 const BtnMarkAsImportant: React.FC<{

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../../store/hooks";
-import { modalActions } from "../../store/Modal.store";
+import { modalActions } from "../../store/modules/Modal/Modal.store";
 const BtnAddTask: React.FC<{ className?: string }> = ({ className }) => {
   const dispatch = useAppDispatch();
 

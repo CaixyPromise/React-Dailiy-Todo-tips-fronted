@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { menusActions } from "../../store/Menu.store";
+import { menusActions } from "../../store/modules/Menu/Menu.store";
 import BtnAddTask from "../Utilities/BtnAddTask";
 import Directories from "./Directories/Directories";
 import NavLinks from "./NavLinks";

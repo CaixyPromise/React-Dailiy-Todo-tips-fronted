@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Task } from "../../interfaces";
 import { useAppDispatch } from "../../store/hooks";
-import { modalActions } from "../../store/Modal.store";
+import { modalActions } from "../../store/modules/Modal/Modal.store";
 import useSortTasks from "../hooks/useSortTasks";
 import ButtonsSort from "../TasksSection/ButtonsSort";
 import TaskItem from "../TasksSection/TaskItem/TaskItem";

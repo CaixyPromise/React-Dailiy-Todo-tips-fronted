@@ -98,7 +98,7 @@ const ModalCreateTask: React.FC<{
         return false;
     });
 
-    const [isAlarm, setAlarm] = useState<boolean>(()=>
+    const [isAlarm, setAlarm] = useState<boolean>(() =>
     {
         if (task)
         {
