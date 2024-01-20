@@ -2,8 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserLoginRequest = {
-    userAccount?: string;
-    userPassword?: string;
+export type PostUpdateRequest = {
+    content?: string;
+    id?: number;
+    tags?: Array<string>;
+    title?: string;
 };
 

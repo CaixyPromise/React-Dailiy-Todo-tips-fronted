@@ -2,8 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserLoginRequest = {
-    userAccount?: string;
-    userPassword?: string;
+import type { User } from './User';
+export type BaseResponse_User_ = {
+    code?: number;
+    data?: User;
+    message?: string;
 };
 

@@ -1,7 +1,15 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import LoginForm from "../pages/LoginForm";
 import RequiredLogin from "../components/CheckLogin";
 import App from "../App";
+import Directory from "@/components/Routes/Directory";
+import TaskOnly from "@/components/Routes/TaskOnly";
+import SearchResults from "@/components/Routes/SearchResults";
+import DoneTasks from "@/components/Routes/DoneTasks";
+import React from "react";
+import TodaysTasks from "@/components/Routes/TodaysTasks";
+import ImportantTasks from "@/components/Routes/ImportantTasks";
+import {Home} from "@mui/icons-material";
 
 const router = createBrowserRouter([
     {
@@ -13,8 +21,40 @@ const router = createBrowserRouter([
         element: <RequiredLogin children={<App />} />,
         children: [
             {
-                path: "",
-                element: <div>Home</div>
+                path: "home",
+                element: <Home />
+            },
+            {
+                path: "today",
+                element: <TodaysTasks />
+            },
+            {
+                path: "important",
+                element: <ImportantTasks />
+            },
+            {
+                path: "completed",
+                element: <DoneTasks done={true} title="已完成任务列表" />
+            },
+            {
+                path: "uncompleted",
+                element: <DoneTasks done={false} title="未完成任务列表" />
+            },
+            {
+                path: "results",
+                element: <SearchResults />
+            },
+            {
+                path: "dir/:dir",
+                element: <Directory />
+            },
+            {
+                path: "task/:taskId",
+                element: <TaskOnly />
+            },
+            {
+                path: "*", // Catch-all route for anything else
+                element: <Navigate to="/home" />
             }
         ]
         // element:

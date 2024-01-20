@@ -1,61 +1,95 @@
-import React, {useEffect, useRef, useState} from 'react';
 import styles from "./index.module.scss";
+import React, {useEffect, useRef, useState} from "react";
+import {Alert} from "antd";
+import {useAppDispatch} from "@/store/hooks";
+import {UserControllerService, UserLoginRequest} from "@/services/requests";
+import {setUserLogin} from "@/store/modules/User/User.store";
+import {useNavigate} from "react-router-dom";
 
-const LoginForm = () =>
+const Login = () =>
 {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [beamDegrees, setBeamDegrees] = useState<string>('0deg');
-    const beamRef = useRef<HTMLDivElement>(null); // 使用useRef来引用beam元素
-
-    const handleMouseMove = (e: MouseEvent) =>
-    {
-        if (beamRef.current)
-        {
-            const rect = beamRef.current.getBoundingClientRect();
-            const mouseX = rect.right + (rect.width / 2);
-            const mouseY = rect.top + (rect.height / 2);
-            const rad = Math.atan2(mouseX - e.pageX, mouseY - e.pageY);
-            const degrees = (rad * (20 / Math.PI) * -1) - 350;
-            setBeamDegrees(`${degrees}deg`);
-        }
-    };
+    const [ Login, setLogin ] = useState(false)
+    const [ errorMessage, setErrorMessage ] = useState(null);
+    // const accountRef = useRef(null);
+    const accountRef: React.LegacyRef<HTMLInputElement> | undefined = useRef(null);
+    const passwordRef: React.LegacyRef<HTMLInputElement> | undefined = useRef(null);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() =>
     {
-        window.addEventListener('mousemove', handleMouseMove);
-        return () =>
+        const account = localStorage.getItem("account");
+        if (account)
         {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
+            // accountRef.current.value = account;
+        }
     }, []);
+    // console.log(HaveToken())
+
+    const doLogin = async (event: any,) =>
+    {
+        event.preventDefault();
+        console.log(event)
+        if (accountRef !== null && passwordRef !== null)
+        {
+            const account = accountRef?.current?.value;
+            const password = passwordRef?.current?.value;
+            const loginForm: UserLoginRequest = {
+                userAccount: account,
+                userPassword: password
+            }
+            try
+            {
+                const response = await UserControllerService.userLoginUsingPOST(loginForm);
+                if (response && response.data)
+                {
+                    dispatch(setUserLogin(response.data))
+                    navigate("/");
+                }
+            }
+            catch (error: any)
+            {
+                console.log(error);
+            }
+        }
+    }
+
 
     return (
-        <div className={styles.loginForm}>
-            <div className={`shell ${showPassword ? 'show-password' : ''}`}>
-                <form>
-                    <h2>LOGIN</h2>
-                    <div className="form-item">
-                        <label htmlFor="username">Username</label>
-                        <div className="input-wrapper">
-                            <input type="text" id="username"/>
-                        </div>
-                    </div>
-                    <div className="form-item">
-                        <label htmlFor="password">Password</label>
-                        <div className="input-wrapper">
-                            <input type={showPassword ? 'text' : 'password'} id="password"/>
-                            <button type="button" id="eyeball" onClick={() => setShowPassword(!showPassword)}>
-                                <div className="eye"></div>
-                            </button>
-                            <div id="beam" ref={beamRef}
-                                 style={{transform: `translateY(-50%) rotate(${beamDegrees})`}}></div>
-                        </div>
-                    </div>
-                    <button id="submit">Sign in</button>
-                </form>
-            </div>
-        </div>
-    );
-};
+        <div className={styles.loginPage}>
+            {errorMessage && <Alert message="Error" description={errorMessage} type="error"/>}
+            <form className={styles.login} onSubmit={doLogin}>
+                <h2>用户登录</h2>
+                <div className={styles.login_box}>
+                    <input type="text"
+                           required={true}
+                           ref={accountRef}
+                           placeholder="请输入账号"
+                    />
+                    <label>邮箱</label>
+                </div>
+                <div className={styles.login_box}>
+                    <input type="password"
+                           required={true}
+                           ref={passwordRef}
+                           placeholder="请输入密码"
+                    />
+                    <label>密码</label>
+                </div>
 
-export default LoginForm;
+                <button className={styles.loginButton} type="submit">
+                    登录
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                {/*<button className={styles.registerButton} >*/}
+                {/*    注册账号*/}
+                {/*</button>*/}
+            </form>
+        </div>
+    )
+}
+
+export default Login;

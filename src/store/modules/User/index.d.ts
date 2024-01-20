@@ -2,5 +2,5 @@
 import {UserVO} from "@/services/requests";
 
 export interface currentUser {
-    loginUser?: UserVO
+    loginUser?: UserVO | null
 }

@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {currentUser} from "./index";
-import {UserControllerService, UserLoginRequest} from "../../../services/requests";
+import {UserControllerService, UserLoginRequest} from "@/services/requests";
 
 const initialState: currentUser = {
     loginUser: null
@@ -13,35 +13,15 @@ const userStore = createSlice({
         {
             state.loginUser = action.payload;
         },
-        setUserLogout(state, action)
+        setUserLogout(state)
         {
             state.loginUser = null;
         }
     }
 })
 
-const { setUserLogin } = userStore.actions;
+const { setUserLogin, setUserLogout } = userStore.actions;
 const userReducer = userStore.reducer;
-
-
-const fetchLogin = (loginForm: UserLoginRequest) =>
-{
-    return async (dispatch: any) =>
-    {
-        try
-        {
-            const response = await UserControllerService.userLoginUsingPOST(loginForm);
-            if (response && response.data)
-            {
-                dispatch(setUserLogin(response.data))
-            }
-        }
-        catch (error: any)
-        {
-            console.log(error);
-        }
-    }
-}
 
 const getUserLogin = () =>
 {
@@ -54,17 +34,20 @@ const getUserLogin = () =>
             {
                 dispatch(setUserLogin(response.data))
             }
+            else {
+                dispatch(setUserLogout())
+            }
         }
         catch (error: any)
         {
             console.log(error);
+            dispatch(setUserLogout())
         }
     }
 }
 
 
 export {
-    fetchLogin,
     setUserLogin,
     getUserLogin
 }

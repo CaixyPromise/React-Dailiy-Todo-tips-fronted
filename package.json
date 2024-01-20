@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.17",
+    "antd": "^5.13.2",
     "axios": "^1.6.5",
     "babel-runtime": "^6.26.0",
     "dayjs": "^1.11.2",
