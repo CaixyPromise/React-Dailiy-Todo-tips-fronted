@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserLoginRequest = {
-    userAccount?: string;
-    userPassword?: string;
+import type { TaskAddRequest } from './TaskAddRequest';
+export type TaskUpdateRequest = {
+    id?: number;
+    task?: TaskAddRequest;
 };
 

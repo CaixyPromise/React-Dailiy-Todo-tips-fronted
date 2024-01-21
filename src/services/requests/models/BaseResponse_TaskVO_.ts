@@ -2,10 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserVO } from './UserVO';
-export type BaseResponse_UserVO_ = {
+import type { TaskVO } from './TaskVO';
+export type BaseResponse_TaskVO_ = {
     code?: number;
-    data?: UserVO;
+    data?: TaskVO;
     message?: string;
 };
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {menusActions} from "../../store/modules/Menu/Menu.store";
+import {useAppDispatch, useAppSelector} from "@/store/hooks";
+import {menusActions} from "@/store/modules/Menu/Menu.store";
 import LayoutMenus from "../Utilities/LayoutMenus";
 import {GameHooks} from "./HookState";
 import dayjs from 'dayjs';
@@ -12,9 +12,6 @@ import {ReactComponent as GameBar} from "../../assets/gameboy.svg";
 import {ReactComponent as TicTac} from "../../assets/tic-tac-toe.svg";
 import {ReactComponent as GameIcon2048} from "../../assets/2048.svg";
 import Weather from "../../Weather/WeatherApp";
-import GameTicTac from "../../game/TicTacToe/Game/Game";
-import {ElseIf, If} from "../Service/condition";
-import GamePuzzle from "../../game/Puzzle/App";
 
 
 const AccountData: React.FC = () =>
@@ -24,7 +21,7 @@ const AccountData: React.FC = () =>
 
     const dispatch = useAppDispatch();
 
-    const [GameState, GameSet] = useState({game: "none", parentDiv: "DontShow"})
+    const [ GameState, GameSet ] = useState({ game: "none", parentDiv: "DontShow" })
     GameHooks.GameState = GameState
     GameHooks.GameSet = GameSet
 
@@ -60,60 +57,37 @@ const AccountData: React.FC = () =>
                 className="top-0 right-0"
             >
 
-                <If condition={GameHooks.GameState.game === "TicTacToe"}>
+                {GameState.game === "GameBar" && GameState.parentDiv === "Show" && (
                     <div className={ClassSwicher(GameHooks.GameState.parentDiv)}>
                         <Close className="text-slate-400 xIconBig" onClick={() =>
                         {
-                            GameState.game = "none"
-                            GameState.parentDiv = "DontShow"
-                            GameSet({...GameState})
-                        }}/>
-                        <GameTicTac/>
-                    </div>
-                </If>
-                <ElseIf condition={GameHooks.GameState.game === "2048"}>
-                    <div className={ClassSwicher(GameHooks.GameState.parentDiv)}>
-                        <Close className="text-slate-400 xIconBig" onClick={() =>
-                        {
-                            GameState.game = "none"
-                            GameState.parentDiv = "DontShow"
-                            GameSet({...GameState})
-                        }}/>
-                        <GamePuzzle/>
-                    </div>
-                </ElseIf>
-                <ElseIf condition={GameState.game === "GameBar" && GameState.parentDiv === "Show"}>
-                    <div className={ClassSwicher(GameHooks.GameState.parentDiv)}>
-
-                        <Close className="text-slate-400 xIconBig" onClick={() =>
-                        {
-                            GameState.game = "none"
-                            GameState.parentDiv = "DontShow"
-                            GameSet({...GameState})
+                            GameState.game = "none";
+                            GameState.parentDiv = "DontShow";
+                            GameSet({ ...GameState });
                         }}/>
 
-                        <div className={ClassSwicher(GameHooks.GameState.game)} style={{opacity: 1}}>
+                        <div className={ClassSwicher(GameHooks.GameState.game)} style={{ opacity: 1 }}>
                             <Close className="text-slate-400 xIconMini" onClick={() =>
                             {
-                                GameState.game = "none"
-                                GameState.parentDiv = "DontShow"
-                                GameSet({...GameState})
+                                GameState.game = "none";
+                                GameState.parentDiv = "DontShow";
+                                GameSet({ ...GameState });
                             }}/>
                             <div className="CenterGamer">
                                 <button className="m-10" onClick={() =>
                                 {
-                                    GameState.game = "2048"
-                                    GameState.parentDiv = "Show"
-                                    GameSet({...GameState})
+                                    GameState.game = "2048";
+                                    GameState.parentDiv = "Show";
+                                    GameSet({ ...GameState });
                                 }}>
                                     <button className="button-29 centered" role="button"><GameIcon2048
                                         className="h-12 w-12 m-4 "/></button>
                                 </button>
                                 <button onClick={() =>
                                 {
-                                    GameState.game = "TicTacToe"
-                                    GameState.parentDiv = "Show"
-                                    GameSet({...GameState})
+                                    GameState.game = "TicTacToe";
+                                    GameState.parentDiv = "Show";
+                                    GameSet({ ...GameState });
                                 }}>
                                     <button className="button-29 centered" role="button"><TicTac
                                         className="h-12 w-12 m-4 "/>
@@ -122,13 +96,13 @@ const AccountData: React.FC = () =>
                             </div>
                         </div>
                     </div>
-                </ElseIf>
+                )}
 
 
                 <div className="grid grid-cols-1">
                     <div className=""><Weather/></div>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateCalendar sx={{width: "90%"}} className="maxAccount" defaultValue={dayjs(new Date())}/>
+                        <DateCalendar sx={{ width: "90%" }} className="maxAccount" defaultValue={dayjs(new Date())}/>
                     </LocalizationProvider>
                     <div className="text-center">
                         <button
@@ -137,7 +111,7 @@ const AccountData: React.FC = () =>
                             {
                                 GameState.game = "GameBar"
                                 GameState.parentDiv = "Show"
-                                GameSet({...GameState})
+                                GameSet({ ...GameState })
                             }}>
                             <GameBar className="GameBarIcon 2xl:w-20 2xl:h-20"/>
                         </button>

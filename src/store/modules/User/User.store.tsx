@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {currentUser} from "./index";
-import {UserControllerService, UserLoginRequest} from "@/services/requests";
+import {UserControllerService} from "@/services/requests";
 
 const initialState: currentUser = {
     loginUser: null
@@ -34,7 +34,8 @@ const getUserLogin = () =>
             {
                 dispatch(setUserLogin(response.data))
             }
-            else {
+            else
+            {
                 dispatch(setUserLogout())
             }
         }

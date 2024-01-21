@@ -3,13 +3,12 @@ import BtnAddTask from "../Utilities/BtnAddTask";
 import {ReactComponent as MenuIcon} from "../../assets/menu.svg";
 import AppsIcon from '@mui/icons-material/Apps';
 import SearchField from "./SearchField";
-import {useAppDispatch} from "../../store/hooks";
-import {menusActions} from "../../store/modules/Menu/Menu.store";
+import {useAppDispatch} from "@/store/hooks";
+import {menusActions} from "@/store/modules/Menu/Menu.store";
 import Notification from "./Notification";
 import DarkMode from "../AccountSection/DarkMode";
 import TasksDone from "../AccountSection/TasksDone";
 import DeleteTasks from "../AccountSection/DeleteTasks";
-import {If} from "../Service/condition";
 import {BackDrop} from "../hooks/useBackDrop";
 
 const HeaderTasks: React.FC = () => {
@@ -86,10 +85,7 @@ const HeaderTasks: React.FC = () => {
                     <AppsIcon className="shadow-slate-400 dark:shadow-slate-900 sm:shadow-transparent"
                               style={{fontSize: 33}}/>
                 </button>
-                <If condition={BackState}>
-                    <BackDrop BackState={BackState} BackSet={BackSet}/>
-                </If>
-
+                {BackState && <BackDrop BackState={BackState} BackSet={BackSet}/>}
             </div>
         </header>
     );

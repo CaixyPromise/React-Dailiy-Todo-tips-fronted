@@ -50,6 +50,7 @@ const getSavedDirectories = (): string[] =>
     return dirList;
 };
 
+
 const initialState: {
     tasks: Task[];
     directories: string[];

@@ -1,8 +1,6 @@
 import {ApiWeather} from "./Api";
 import React, {useEffect, useState} from "react";
 import "./Weather.css";
-import {AlertBlock} from "./AlertBlock";
-import {Condition, If, Else, ElseIf} from "../components/Service/condition";
 import AirIcon from '@mui/icons-material/Air';
 import moment from "moment/moment";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
