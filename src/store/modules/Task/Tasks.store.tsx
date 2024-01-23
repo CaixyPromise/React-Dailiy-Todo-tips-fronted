@@ -1,5 +1,5 @@
 import {Action, createSlice, Dispatch, MiddlewareAPI, PayloadAction,} from "@reduxjs/toolkit";
-import {Task} from "../../../interfaces";
+import {Task} from "@/interfaces";
 
 const defaultTasks: Task[] = [
     {
@@ -45,7 +45,7 @@ const getSavedDirectories = (): string[] =>
                 }
             }
         });
-        dirList = [...dirList, ...dirNotSaved];
+        dirList = [ ...dirList, ...dirNotSaved ];
     }
     return dirList;
 };
@@ -55,9 +55,7 @@ const initialState: {
     tasks: Task[];
     directories: string[];
 } = {
-    tasks: localStorage.getItem("tasks")
-        ? JSON.parse(localStorage.getItem("tasks")!)
-        : defaultTasks,
+    tasks: [],
     directories: getSavedDirectories(),
 };
 
@@ -67,7 +65,11 @@ const tasksSlice = createSlice({
     reducers: {
         addNewTask(state, action: PayloadAction<Task>)
         {
-            state.tasks = [action.payload, ...state.tasks];
+            state.tasks = [ action.payload, ...state.tasks ];
+        },
+        addNewTaskArray(state, action: PayloadAction<Task[]>)
+        {
+            state.tasks = [ ...action.payload, ...state.tasks ];
         },
         removeTask(state, action)
         {
@@ -103,14 +105,14 @@ const tasksSlice = createSlice({
         deleteAllData(state)
         {
             state.tasks = [];
-            state.directories = ["Main"];
+            state.directories = [ "Main" ];
         },
         createDirectory(state, action: PayloadAction<string>)
         {
             const newDirectory: string = action.payload;
             const directoryAlreadyExists = state.directories.includes(newDirectory);
             if (directoryAlreadyExists) return;
-            state.directories = [newDirectory, ...state.directories];
+            state.directories = [ newDirectory, ...state.directories ];
         },
         deleteDirectory(state, action: PayloadAction<string>)
         {

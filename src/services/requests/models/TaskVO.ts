@@ -3,13 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type TaskVO = {
-    alarm?: number;
-    completed?: number;
+    alarm?: boolean;
+    completed?: boolean;
     date?: string;
     description?: string;
     dir?: string;
-    important?: number;
+    id?: number;
+    important?: boolean;
     title?: string;
-    userid?: number;
 };
 

@@ -6,11 +6,11 @@ import moment from "moment/moment";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
-import DangerousIcon from '@mui/icons-material/Dangerous';
 import WeatherBlock from "./WeatherBlock";
 
-export default function Weather() {
-    const [state, setState] = useState({
+export default function Weather()
+{
+    const [ state, setState ] = useState({
         country: "",
         countryName: "",
         Time: "",
@@ -21,9 +21,12 @@ export default function Weather() {
         status: "",
         block: false
     })
-    useEffect(() => {
-        ApiWeather().then(response => {
-            if (response) {
+    useEffect(() =>
+    {
+        ApiWeather().then(response =>
+        {
+            if (response)
+            {
                 state.country = response.location.country;
                 state.countryName = response.location.name;
                 state.Time = response.location.localtime;
@@ -32,28 +35,32 @@ export default function Weather() {
                 state.humidity = response.current.humidity
                 state.icon = response.current.condition.icon
                 state.status = response.current.condition.text
-                setState({...state})
-            } else {
+                setState({ ...state })
+            }
+            else
+            {
                 state.block = true;
-                setState({...state})
+                setState({ ...state })
             }
         })
     }, [])
 
     return (
         <>
-            {(() => {
-                if (!state.block) {
+            {(() =>
+            {
+                if (!state.block)
+                {
                     return (
                         <section className="weather-container">
                             <div className="container-top">
                                 <div>
                                     <h1 className="weather-title text-white">Today</h1>
-                                    <p className="paragraph" style={{color: "#6D28D9"}}>
+                                    <p className="paragraph" style={{ color: "#6D28D9" }}>
                                         {moment(state.Time).format("h:mm a")}
                                     </p>
                                 </div>
-                                <p className="font-bold" style={{color: "#6D28D9"}}>
+                                <p className="font-bold" style={{ color: "#6D28D9" }}>
                                     {moment(state.Time).format("MMM Do YY")}
                                 </p>
                             </div>
@@ -91,7 +98,9 @@ export default function Weather() {
                             </div>
                         </section>
                     )
-                } else {
+                }
+                else
+                {
                     return (
                         <WeatherBlock/>
                     )

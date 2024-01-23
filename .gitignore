@@ -155,3 +155,6 @@ _roadhog-api-doc
 
 # production
 /dist
+
+# openapi
+/generated

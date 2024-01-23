@@ -52,6 +52,7 @@
     "start": "npx react-app-rewired start",
     "build": "npx react-app-rewired build",
     "test": "npx react-app-rewired test",
+    "openapi": "openapi --input http://localhost:7001/api/v2/api-docs --output ./generated --client axios",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
