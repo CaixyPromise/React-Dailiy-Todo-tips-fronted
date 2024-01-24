@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type TaskAddRequest = {
-    alarm?: number;
-    completed?: number;
+    alarm?: boolean;
+    completed?: boolean;
     date?: string;
     description?: string;
     dir?: string;
-    important?: number;
+    important?: boolean;
     title?: string;
 };
 

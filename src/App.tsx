@@ -7,6 +7,8 @@ import {Task} from "./interfaces";
 import {useAppDispatch, useAppSelector} from "./store/hooks";
 import {modalActions} from "./store/modules/Modal/Modal.store";
 import {tasksActions} from "./store/modules/Task/Tasks.store";
+import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
+import {TaskAddRequest} from "@/services/requests/models/TaskAddRequest";
 
 
 const App: React.FC = () =>
@@ -20,11 +22,27 @@ const App: React.FC = () =>
         dispatch(modalActions.closeModalCreateTask());
     };
 
-    const createNewTaskHandler = (task: Task) =>
+    const createNewTaskHandler = async (task: Task) =>
     {
-        dispatch(tasksActions.addNewTask(task));
+        try
+        {
+            const requestTaskBody: TaskAddRequest = {
+                alarm: task.alarm,
+                title: task.title,
+                dir: task.dir,
+                date: task.date,
+                description: task.description,
+                completed: task.completed,
+                important: task.important,
+            }
+            await TaskControllerService.addTasksUsingPOST(requestTaskBody);
+            dispatch(tasksActions.addNewTask(task));
+        }
+        catch (e: any)
+        {
+            console.error(e);
+        }
     };
-
 
     return (
         <div>

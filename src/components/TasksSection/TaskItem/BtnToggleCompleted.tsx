@@ -1,8 +1,9 @@
 import React from "react";
-import { useAppDispatch } from "../../../store/hooks";
-import { tasksActions } from "../../../store/modules/Task/Tasks.store";
+import { useAppDispatch } from "@/store/hooks";
+import { tasksActions } from "@/store/modules/Task/Tasks.store";
 import { ReactComponent as SvgX } from "../../../assets/x.svg";
 import { ReactComponent as Check } from "../../../assets/check.svg";
+import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
 const BtnToggleCompleted: React.FC<{
   taskCompleted: boolean;
@@ -11,8 +12,17 @@ const BtnToggleCompleted: React.FC<{
 }> = ({ taskCompleted, taskId, isListInView1 }) => {
   const dispatch = useAppDispatch();
 
-  const toggleTaskCompleted = (id: string) => {
-    dispatch(tasksActions.toggleTaskCompleted(id));
+  const toggleTaskCompleted = async (id: string) => {
+    try {
+      await TaskControllerService.updateStatusUsingPOST({
+        taskId: Number(id),
+        status: 0
+      });
+      dispatch(tasksActions.toggleTaskCompleted(id));
+    }catch (e: any)
+    {
+      console.error(e);
+    }
   };
 
   return (

@@ -7,6 +7,7 @@ import {TaskControllerService} from "@/services/requests/services/TaskController
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import {TaskVO} from "@/services/requests/models/TaskVO";
 import {Task} from "@/interfaces";
+import {TaskDirectoriesVO} from "../../../generated";
 
 const Home: React.FC = () =>
 {
@@ -21,23 +22,28 @@ const Home: React.FC = () =>
             const response = await TaskControllerService.fetchTasksUsingGET();
             if (response && response.data)
             {
-                const convertedTasks: Task[] = response.data.map(
-                    (task: TaskVO) =>
-                    {
-                        return {
-                            id: task.id?.toString() || 'unknown-id',
-                            title: task.title || 'unknown-title',
-                            dir: task.dir || 'unknown-dir',
-                            description: task.description || 'unknown-description',
-                            date: task.date || Date.now().toString(),
-                            completed: task.completed || false,
-                            important: task.important || false,
-                            alarm: task.alarm || false
-                        };
-                    },
-                );
-                console.log("convertedTasks", convertedTasks)
+                const convertedTasks: Task[] = response.data.tasks?.map(
+                    (task: TaskVO) => ({
+                        id: task.id?.toString() || 'unknown-id',
+                        title: task.title || 'unknown-title',
+                        dir: task.dir || 'unknown-dir',
+                        description: task.description || 'unknown-description',
+                        date: task.date || Date.now().toString(),
+                        completed: task.completed || false,
+                        important: task.important || false,
+                        alarm: task.alarm || false
+                    })
+                ) || [];
+                const convertedDirectories: string[] = []
+                response.data.directories?.forEach(
+                    (dir: TaskDirectoriesVO)=> {
+                        // @ts-ignore
+                        convertedDirectories.push(dir.name)
+                    }
+                )
+                console.log("convertedTasks", convertedTasks);
                 dispatch(tasksActions.addNewTaskArray(convertedTasks));
+                dispatch(tasksActions.addNewDirectory(convertedDirectories));
             }
         }
     }

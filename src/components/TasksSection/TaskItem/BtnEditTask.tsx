@@ -4,10 +4,14 @@ import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalCreateTask from "../../Utilities/ModalTask";
 import {ReactComponent as OptionsSvg} from "../../../assets/options.svg";
 import {Task} from "@/interfaces";
+import {TaskUpdateRequest} from "@/services/requests/models/TaskUpdateRequest";
+import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
-const BtnEditTask: React.FC<{ task: Task }> = ({task}) =>
+const BtnEditTask: React.FC<{
+    task: Task
+}> = ({ task }) =>
 {
-    const [modalEditTaskOpen, setModalEditTaskOpen] = useState<boolean>(false);
+    const [ modalEditTaskOpen, setModalEditTaskOpen ] = useState<boolean>(false);
     const dispatch = useAppDispatch();
 
     const closeModalEditTask = () =>
@@ -20,9 +24,29 @@ const BtnEditTask: React.FC<{ task: Task }> = ({task}) =>
         setModalEditTaskOpen(true);
     };
 
-    const editTaskHandler = (task: Task) =>
+    const editTaskHandler = async (task: Task) =>
     {
-        dispatch(tasksActions.editTask(task));
+        try
+        {
+            const updatedTask: TaskUpdateRequest = {
+                id: Number(task.id),
+                task: {
+                    alarm: task.alarm,
+                    title: task.title,
+                    dir: task.dir,
+                    date: task.date,
+                    description: task.description,
+                    completed: task.completed,
+                    important: task.important,
+                }
+            }
+            await TaskControllerService.updateTasksUsingPOST(updatedTask);
+            dispatch(tasksActions.editTask(task));
+        }
+        catch (e: any)
+        {
+            console.error(e)
+        }
     };
 
     return (

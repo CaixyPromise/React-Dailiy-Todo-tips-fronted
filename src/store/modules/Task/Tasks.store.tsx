@@ -1,25 +1,14 @@
 import {Action, createSlice, Dispatch, MiddlewareAPI, PayloadAction,} from "@reduxjs/toolkit";
 import {Task} from "@/interfaces";
 
-const defaultTasks: Task[] = [
-    {
-        title: "Task One",
-        important: false,
-        description: "Write your description",
-        date: "2023-07-22",
-        dir: "Main",
-        completed: true,
-        id: "Task1",
-        alarm: false
-    }
-];
-
 const getSavedDirectories = (): string[] =>
 {
     let dirList: string[] = [];
-    if (localStorage.getItem("directories"))
+    // 直接找本地缓存里的目录信息
+    const localStorageDir = localStorage.getItem("directories");
+    if (localStorageDir)
     {
-        dirList = JSON.parse(localStorage.getItem("directories")!);
+        dirList = JSON.parse(localStorageDir!);
         const mainDirExists = dirList.some((dir: string) => dir === "主要的");
         if (!mainDirExists)
         {
@@ -30,11 +19,11 @@ const getSavedDirectories = (): string[] =>
     {
         dirList.push("主要的");
     }
-
+    // 如果没有就从已有的任务里分离目录信息
     if (localStorage.getItem("tasks"))
     {
         const savedTasksList = JSON.parse(localStorage.getItem("tasks")!);
-        let dirNotSaved: string[] = [];
+        const dirNotSaved: string[] = [];
         savedTasksList.forEach((task: Task) =>
         {
             if (!dirList.includes(task.dir))
@@ -67,8 +56,14 @@ const tasksSlice = createSlice({
         {
             state.tasks = [ action.payload, ...state.tasks ];
         },
+        // 传入任务数组，用于从服务器拿到的操作
         addNewTaskArray(state, action: PayloadAction<Task[]>)
         {
+            const newTasks: Task[] = action.payload;
+            if (newTasks.length < 0)
+            {
+                return;
+            }
             state.tasks = [ ...action.payload, ...state.tasks ];
         },
         removeTask(state, action)
@@ -97,21 +92,34 @@ const tasksSlice = createSlice({
         toggleTaskCompleted(state, action: PayloadAction<string>)
         {
             const taskId = action.payload;
-
             const currTask = state.tasks.find((task) => task.id === taskId)!;
-
             currTask.completed = !currTask.completed;
         },
         deleteAllData(state)
         {
             state.tasks = [];
-            state.directories = [ "Main" ];
+            state.directories = [ "主要的" ];
         },
+        addNewDirectory(state, action: PayloadAction<string[]>)
+        {
+            const newDirectory: string[] = action.payload;
+            newDirectory.forEach((directory) =>
+            {
+                if (directory !== "" && !state.directories.includes(directory))
+                {
+                    state.directories.push(directory);
+                }
+            })
+        }
+        ,
         createDirectory(state, action: PayloadAction<string>)
         {
             const newDirectory: string = action.payload;
             const directoryAlreadyExists = state.directories.includes(newDirectory);
-            if (directoryAlreadyExists) return;
+            if (directoryAlreadyExists)
+            {
+                return;
+            }
             state.directories = [ newDirectory, ...state.directories ];
         },
         deleteDirectory(state, action: PayloadAction<string>)
