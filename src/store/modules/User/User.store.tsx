@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {currentUser} from "./index";
 import {UserControllerService} from "@/services/requests";
+import {message} from "antd";
 
 const initialState: currentUser = {
     loginUser: null
@@ -41,7 +42,7 @@ const getUserLogin = () =>
         }
         catch (error: any)
         {
-            console.log(error);
+            message.error("用户未登录")
             dispatch(setUserLogout())
         }
     }

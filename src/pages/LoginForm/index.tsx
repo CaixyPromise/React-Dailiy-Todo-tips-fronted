@@ -2,7 +2,7 @@ import styles from "./index.module.scss";
 import React, {useRef} from "react";
 import {message} from "antd";
 import {useAppDispatch} from "@/store/hooks";
-import {UserControllerService, UserLoginRequest} from "@/services/requests";
+import {UserControllerService} from "@/services/requests";
 import {setUserLogin} from "@/store/modules/User/User.store";
 import {useNavigate} from "react-router-dom";
 
@@ -16,7 +16,6 @@ const Login = () =>
     const doLogin = async (event: any,) =>
     {
         event.preventDefault();
-        console.log(event)
         if (accountRef !== null && passwordRef !== null)
         {
             const account = accountRef?.current?.value;

@@ -169,8 +169,6 @@ class Index
             this.sendNotification(notification);
         }, delay);
         this.TaskIdSet.add(notification.taskId);
-        console.log(this.TaskIdSet);
-        console.log("register notification taskId: " + notification.taskId + "on delay: " + delay);
         return true;
         // 注意：settimeout的回调函数的this指向的是window，所以需要用bind来绑定this
     }

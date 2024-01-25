@@ -193,7 +193,6 @@ export const tasksMiddleware =
 
         if (tasksActions.removeTask.match(action))
         {
-            console.log(JSON.parse(localStorage.getItem("tasks")!));
             if (localStorage.getItem("tasks"))
             {
                 const localStorageTasks = JSON.parse(localStorage.getItem("tasks")!);

@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import BtnAddTask from "../Utilities/BtnAddTask";
 import {ReactComponent as MenuIcon} from "../../assets/menu.svg";
-import AppsIcon from '@mui/icons-material/Apps';
 import SearchField from "./SearchField";
 import {useAppDispatch} from "@/store/hooks";
 import {menusActions} from "@/store/modules/Menu/Menu.store";
@@ -13,46 +12,11 @@ import DeleteTasks from "../AccountSection/DeleteTasks";
 const HeaderTasks: React.FC = () =>
 {
     const dispatch = useAppDispatch();
-    let [ BackState, BackSet ] = useState(false);
-
-    const date: Date = new Date();
-    const year: number = date.getFullYear();
-    const month: number = date.getMonth();
-    const day: number = date.getDate();
-
-    const monthName: string[] = [
-        "一月",
-        "二月",
-        "三月",
-        "四月",
-        "五月",
-        "六月",
-        "七月",
-        "八月",
-        "九月",
-        "十月",
-        "十一月",
-        "十二月",
-    ];
-
-    const todayDate = `${year}, ${monthName[month].slice(0, 3)} ${day
-        .toString()
-        .padStart(2, "0")}`;
-
-    const dateTimeFormat = `${year}-${month.toString().padStart(2, "0")}-${day
-        .toString()
-        .padStart(2, "0")}}`;
 
     const openMenuHeaderHandler = () =>
     {
         dispatch(menusActions.openMenuHeader());
     };
-    const openMenuAccountHandler = () =>
-    {
-        dispatch(menusActions.openMenuAccount());
-    };
-
-    console.log("BackState is: ", BackState)
 
     return (
         <header className="items-center grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 md:flex ">

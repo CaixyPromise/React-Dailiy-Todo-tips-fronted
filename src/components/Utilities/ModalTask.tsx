@@ -182,7 +182,7 @@ const ModalCreateTask: React.FC<{
                 <label>
                     任务描述(可选)
                     <textarea
-                        placeholder="e.g, study for the test"
+                        placeholder="任务描述: 学习? 工作任务?"
                         className="w-full"
                         value={description}
                         onChange={({target}) => setDescription(target.value)}

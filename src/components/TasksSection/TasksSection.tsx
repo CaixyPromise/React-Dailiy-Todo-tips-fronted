@@ -1,13 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import {Navigate, Route, Routes} from "react-router-dom";
-import Directory from "../Routes/Directory";
-import DoneTasks from "../Routes/DoneTasks";
-import Home from "../Routes/Home";
-import ImportantTasks from "../Routes/ImportantTasks";
-import SearchResults from "../Routes/SearchResults";
-import TaskOnly from "../Routes/TaskOnly";
-import TodaysTasks from "../Routes/TodaysTasks";
 import HeaderTasks from "./HeaderTasks";
 
 

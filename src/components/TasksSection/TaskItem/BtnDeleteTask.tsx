@@ -4,6 +4,7 @@ import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalConfirm from "../../Utilities/ModalConfirm";
 import {ReactComponent as Trash} from "@/assets/trash.svg";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
+import {message} from "antd";
 
 const BtnDeleteTask: React.FC<{ taskId: string }> = ({ taskId }) =>
 {
@@ -16,10 +17,11 @@ const BtnDeleteTask: React.FC<{ taskId: string }> = ({ taskId }) =>
         {
             TaskControllerService.deleteTasksUsingPOST({ id: Number(taskId) })
             dispatch(tasksActions.removeTask(taskId));
+            message.success("删除任务成功")
         }
         catch (e: any)
         {
-            console.log(e);
+            message.error("删除任务失败");
         }
     };
     return (
