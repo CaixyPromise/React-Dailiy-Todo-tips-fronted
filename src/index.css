@@ -171,43 +171,6 @@ input[type="search"]::-webkit-search-results-decoration
     display: none;
 }
 
-.GameBar
-{
-    height: 20vh;
-    background-color: rgba(121, 91, 245, 0.2);
-    border-radius: 50px;
-    border-top-right-radius: 0px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    z-index: 100;
-}
-
-.CenterGamer
-{
-    padding-right: 4vw;
-}
-
-.DontShow
-{
-    display: none;
-}
-
-.Show
-{
-    background-color: rgba(121, 91, 245, 0.2);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-    width: 110%;
-    overflow: auto;
-    height: 100vh;
-}
-
-
 .xIconMini
 {
     width: 25px;
@@ -381,67 +344,13 @@ input[type="search"]::-webkit-search-results-decoration
     vertical-align: middle;
 }
 
-.GameBarBtnMobile
-{
-    background-color: #EAB308;
-    color: #6D28D9;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    letter-spacing: 4px;
-    transition: 0.5s;
-    cursor: pointer;
-}
 
-.GameBarBtn
-{
-    padding: 15px 15px;
-    background-color: #EAB308;
-    color: #6D28D9;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    letter-spacing: 4px;
-    transition: 0.5s;
-    cursor: pointer;
-}
 
 .scroler
 {
     overflow-y: scroll;
 }
 
-.GameBarBtn:hover
-{
-    background: #6D28D9;
-    box-shadow: 0 0 5px #6D28D9,
-    0 0 25px #6D28D9,
-    0 0 50px #6D28D9,
-    0 0 200px #6D28D9;
-}
-
-.GameBarIcon
-{
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.GameBarIconMobile
-{
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0%);
-}
 
 .ScrollBars
 {
@@ -462,25 +371,6 @@ input[type="search"]::-webkit-search-results-decoration
 
 }
 
-.GameBarMobile
-{
-    width: 75vw;
-    height: 50vh;
-    background-color: rgba(121, 91, 245, 0.2);
-    border-radius: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: auto;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    z-index: 100;
-}
-
 .xTop
 {
     position: relative;
@@ -489,5 +379,16 @@ input[type="search"]::-webkit-search-results-decoration
     top: 5%;
     left: 90%;
     z-index: 99999;
+}
+
+.hover-effect
+{
+    border-radius: 30px;
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-effect:hover
+{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 

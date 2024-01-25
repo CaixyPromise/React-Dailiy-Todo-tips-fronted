@@ -30,7 +30,7 @@ const Menu: React.FC = () => {
         >
           <div style={{
             width: "182px",
-            height: "50px",//对于图片的多变性,很多情况下不给固定高,让图片自适应,避免图片变形失真
+            height: "50px",
             borderRadius: "5px",
             display: "flex",
             justifyContent: "center",

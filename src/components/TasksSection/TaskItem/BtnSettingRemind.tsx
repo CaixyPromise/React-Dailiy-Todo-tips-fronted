@@ -80,7 +80,7 @@ const BtnSettingRemind: React.FC<RemindProps> = ({ taskId, taskRemind, targetTim
             // className={`relative ${tasksToShow.length ? classHasNotification : ""}`}
             title="设置提醒事件"
         >
-            <IconBell className="w-5 h-5 md:w-6 md:h-6"
+            <IconBell className="w-5 h-5 md:w-6 md:h-6 hover-effect"
                       style={{
                           fill: taskRemind ? "red" : "white",
                           borderColor: "black",

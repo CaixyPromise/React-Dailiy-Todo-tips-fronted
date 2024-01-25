@@ -2,7 +2,7 @@ import React from "react";
 import {useAppDispatch} from "@/store/hooks";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import {ReactComponent as SvgX} from "@/assets/x.svg";
-import {ReactComponent as Check} from "@/assets/check.svg";
+import {ReactComponent as Check} from "../../../assets/check.svg";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
 const BtnToggleCompleted: React.FC<{
@@ -39,7 +39,7 @@ const BtnToggleCompleted: React.FC<{
             } ${isListInView1 ? "mr-4" : "mr-4 order-0"} rounded-full font-medium`}
             onClick={() => toggleTaskCompleted(taskId)}
         >
-      <span className="block py-1 px-3 absolute invisible sm:static sm:visible">
+      <span className="block py-1 px-3 absolute invisible sm:static sm:visible hover-effect">
         {taskCompleted ? "已完成" : "未完成"}
       </span>
             <span className=" sm:hidden w-6 h-6 grid place-items-center">

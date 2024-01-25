@@ -13,7 +13,10 @@ type Props = {
 
 const LayoutRoutes: React.FC<Props> = ({ title, tasks }) =>
 {
-    const [ isListInView1, setIsListInView1 ] = useState<boolean>(false);
+    const [ isListInView1, setIsListInView1 ] = useState<boolean>(() => {
+        const isListInView = localStorage.getItem("view-mode");
+        return isListInView ? JSON.parse(isListInView) : true;
+    });
 
     const dispatch = useAppDispatch();
 

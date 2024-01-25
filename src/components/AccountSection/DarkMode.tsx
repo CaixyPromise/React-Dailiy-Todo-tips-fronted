@@ -46,6 +46,7 @@ const DarkMode: React.FC = () =>
             className="flex items-center justify-between"
             style={{marginRight: 20}}
             onClick={toggleDarkMode}
+            title={isCurrentDarkmode ? "关闭深色模式" : "开启深色模式"}
         >
             <div
                 className="w-14 h-5 bg-yellow-600 rounded-full px-0.5 dark:bg-yellow-700/[.3] relative flex items-center dark:justify-end">

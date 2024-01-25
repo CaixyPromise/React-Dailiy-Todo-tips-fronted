@@ -9,7 +9,7 @@ const BtnAddTask: React.FC<{ className?: string }> = ({ className }) => {
   };
   return (
     <>
-      <button className={`btn  ${className}`} onClick={onOpenModal}>
+      <button className={`btn  ${className}`} onClick={onOpenModal} title="添加新的任务!! 开启斗志满满的一天!!">
         添加任务
       </button>
     </>

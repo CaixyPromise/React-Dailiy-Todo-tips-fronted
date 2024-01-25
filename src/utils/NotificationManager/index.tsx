@@ -1,8 +1,6 @@
 // import {NotificationTableType, Notification} from "./typings";
 
 import {message} from "antd";
-import boolean from "async-validator/dist-types/validator/boolean";
-import {bool} from "prop-types";
 
 export interface NotificationTableType
 {

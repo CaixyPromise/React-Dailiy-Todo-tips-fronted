@@ -28,12 +28,12 @@ const Notification: React.FC = () =>
 
     const moreTasksToShow = uncompletedTasks.length > tasksToShow.length;
     return (
-        <div className="sm:mr-4 md:mr-6 ml-auto grid place-items-center relative">
+        <div className="sm:mr-4 md:mr-6 ml-auto grid place-items-center relative hover-effect">
             <button
                 ref={refBtnNotification}
                 onClick={showNotifications}
                 className={`relative ${tasksToShow.length ? classHasNotification : ""}`}
-                title="see notifications"
+                title="通知信息"
             >
                 <IconBell className="fill-violet-600 w-5 h-5 md:w-6 md:h-6 dark:fill-violet-800"/>
             </button>
@@ -69,7 +69,7 @@ const Notification: React.FC = () =>
                             )}
                         </div>
                     ) : (
-                        <p>Nothing to show here.</p>
+                        <p>没有待办需要提醒的任务</p>
                     )}
                 </div>
             )}

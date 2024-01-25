@@ -9,7 +9,6 @@ import Notification from "./Notification";
 import DarkMode from "../AccountSection/DarkMode";
 import TasksDone from "../AccountSection/TasksDone";
 import DeleteTasks from "../AccountSection/DeleteTasks";
-import {BackDrop} from "../hooks/useBackDrop";
 
 const HeaderTasks: React.FC = () =>
 {
@@ -53,6 +52,8 @@ const HeaderTasks: React.FC = () =>
         dispatch(menusActions.openMenuAccount());
     };
 
+    console.log("BackState is: ", BackState)
+
     return (
         <header className="items-center grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 md:flex ">
             <button
@@ -74,23 +75,6 @@ const HeaderTasks: React.FC = () =>
                 <DeleteTasks/>
                 <DarkMode/>
                 <BtnAddTask className="hidden xl:block shadow-slate-400  dark:shadow-slate-900 sm:shadow-transparent"/>
-                <button
-                    className="block xl:hidden"
-                    onClick={() =>
-                    {
-                        BackState = true
-                        BackSet(true)
-                        setTimeout(() =>
-                        {
-                            localStorage.setItem('Alert', JSON.stringify("Showed"));
-                        }, 2000);
-
-                    }}
-                >
-                    <AppsIcon className="shadow-slate-400 dark:shadow-slate-900 sm:shadow-transparent"
-                              style={{ fontSize: 33 }}/>
-                </button>
-                {BackState && <BackDrop BackState={BackState} BackSet={BackSet}/>}
             </div>
         </header>
     );

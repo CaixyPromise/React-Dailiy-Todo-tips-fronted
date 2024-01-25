@@ -1,6 +1,6 @@
 import styles from "./index.module.scss";
-import React, {useEffect, useRef, useState} from "react";
-import {Alert} from "antd";
+import React, {useRef} from "react";
+import {message} from "antd";
 import {useAppDispatch} from "@/store/hooks";
 import {UserControllerService, UserLoginRequest} from "@/services/requests";
 import {setUserLogin} from "@/store/modules/User/User.store";
@@ -8,23 +8,10 @@ import {useNavigate} from "react-router-dom";
 
 const Login = () =>
 {
-    const [ Login, setLogin ] = useState(false)
-    const [ errorMessage, setErrorMessage ] = useState(null);
-    // const accountRef = useRef(null);
     const accountRef: React.LegacyRef<HTMLInputElement> | undefined = useRef(null);
     const passwordRef: React.LegacyRef<HTMLInputElement> | undefined = useRef(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
-    useEffect(() =>
-    {
-        const account = localStorage.getItem("account");
-        if (account)
-        {
-            // accountRef.current.value = account;
-        }
-    }, []);
-    // console.log(HaveToken())
 
     const doLogin = async (event: any,) =>
     {
@@ -34,13 +21,12 @@ const Login = () =>
         {
             const account = accountRef?.current?.value;
             const password = passwordRef?.current?.value;
-            const loginForm: UserLoginRequest = {
-                userAccount: account,
-                userPassword: password
-            }
             try
             {
-                const response = await UserControllerService.userLoginUsingPOST(loginForm);
+                const response = await UserControllerService.userLoginUsingPOST({
+                    userAccount: account,
+                    userPassword: password
+                });
                 if (response && response.data)
                 {
                     dispatch(setUserLogin(response.data))
@@ -49,7 +35,7 @@ const Login = () =>
             }
             catch (error: any)
             {
-                console.log(error);
+                message.error("登录失败，请检查账号或密码是否正确!!");
             }
         }
     }
@@ -57,7 +43,6 @@ const Login = () =>
 
     return (
         <div className={styles.loginPage}>
-            {errorMessage && <Alert message="Error" description={errorMessage} type="error"/>}
             <form className={styles.login} onSubmit={doLogin}>
                 <h2>用户登录</h2>
                 <div className={styles.login_box}>

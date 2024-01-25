@@ -35,7 +35,7 @@ const BtnMarkAsImportant: React.FC<{
             className="transition hover:text-slate-700 dark:hover:text-slate-200 ml-auto"
         >
             <StarLine
-                className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                className={`hover-effect w-5 h-5 sm:w-6 sm:h-6 ${
                     taskImportant ? "fill-rose-500 stroke-rose-500 " : "fill-none"
                 }`}
             />
