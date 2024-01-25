@@ -22,7 +22,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@/*": [
-        "./src/*"
+        "src/*"
       ]
     },
     "baseUrl": "./"
@@ -33,6 +33,11 @@
     "./**/*.tsx",
     "src",
     "src/custom.d.ts",
-    "src/components"
+    "src/components",
+    "src/utils",
+    "src/utils/**",
+    "src/utils/**/*.d.ts",
+    "src/utils/**/*.ts",
+    "src/utils/**/*.tsx"
   ]
 }

@@ -64,7 +64,7 @@ const tasksSlice = createSlice({
             {
                 return;
             }
-            state.tasks = [ ...action.payload, ...state.tasks ];
+            state.tasks = action.payload;
         },
         removeTask(state, action)
         {
@@ -78,6 +78,13 @@ const tasksSlice = createSlice({
                 (task) => task.id === action.payload
             );
             newTaskFavorited!.important = !newTaskFavorited!.important;
+        },
+        toggleTaskNeedRemind(state, action)
+        {
+            const newTaskFavorited = state.tasks.find(
+                (task) => task.id === action.payload
+            );
+            newTaskFavorited!.alarm = !newTaskFavorited!.alarm;
         },
         editTask(state, action: PayloadAction<Task>)
         {
@@ -110,8 +117,7 @@ const tasksSlice = createSlice({
                     state.directories.push(directory);
                 }
             })
-        }
-        ,
+        },
         createDirectory(state, action: PayloadAction<string>)
         {
             const newDirectory: string = action.payload;

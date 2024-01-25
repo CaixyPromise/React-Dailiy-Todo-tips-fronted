@@ -1,17 +1,26 @@
 import React, {useState} from "react";
-import {useAppDispatch} from "../../../store/hooks";
-import {tasksActions} from "../../../store/modules/Task/Tasks.store";
+import {useAppDispatch} from "@/store/hooks";
+import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalConfirm from "../../Utilities/ModalConfirm";
-import {ReactComponent as Trash} from "../../../assets/trash.svg";
+import {ReactComponent as Trash} from "@/assets/trash.svg";
+import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
-const BtnDeleteTask: React.FC<{ taskId: string }> = ({taskId}) =>
+const BtnDeleteTask: React.FC<{ taskId: string }> = ({ taskId }) =>
 {
-    const [showModal, setIsModalShown] = useState<boolean>(false);
+    const [ showModal, setIsModalShown ] = useState<boolean>(false);
     const dispatch = useAppDispatch();
 
     const removeTaskHandler = () =>
     {
-        dispatch(tasksActions.removeTask(taskId));
+        try
+        {
+            TaskControllerService.deleteTasksUsingPOST({ id: Number(taskId) })
+            dispatch(tasksActions.removeTask(taskId));
+        }
+        catch (e: any)
+        {
+            console.log(e);
+        }
     };
     return (
         <>

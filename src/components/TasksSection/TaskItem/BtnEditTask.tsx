@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useAppDispatch} from "@/store/hooks";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalCreateTask from "../../Utilities/ModalTask";
-import {ReactComponent as OptionsSvg} from "../../../assets/options.svg";
+import {ReactComponent as OptionsSvg} from "@/assets/options.svg";
 import {Task} from "@/interfaces";
 import {TaskUpdateRequest} from "@/services/requests/models/TaskUpdateRequest";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";

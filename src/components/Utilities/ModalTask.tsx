@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
-import {Task} from "../../interfaces";
-import {useAppSelector} from "../../store/hooks";
+import {Task} from "@/interfaces";
+import {useAppSelector} from "@/store/hooks";
 import Modal from "./Modal";
 
 const InputCheckbox: React.FC<{
@@ -36,7 +36,6 @@ const ModalCreateTask: React.FC<{
 }> = ({onClose, task, nameForm, onConfirm}) =>
 {
     const directories = useAppSelector((state) => state.tasks.directories);
-
     const today: Date = new Date();
     let day: number = today.getDate();
     let month: number = today.getMonth() + 1;
@@ -52,6 +51,18 @@ const ModalCreateTask: React.FC<{
 
     const todayDate: string = year + "-" + month + "-" + day;
     const maxDate: string = year + 1 + "-" + month + "-" + day;
+
+
+    const formatDateForInput = (isoDateStr: string) => {
+        const date = new Date(isoDateStr);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
 
     const [description, setDescription] = useState<string>(() =>
     {
@@ -73,7 +84,7 @@ const ModalCreateTask: React.FC<{
     {
         if (task)
         {
-            return task.date;
+            return formatDateForInput(task.date);
         }
         return todayDate;
     });

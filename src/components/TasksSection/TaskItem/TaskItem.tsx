@@ -1,5 +1,5 @@
 import React from "react";
-import { Task } from "../../../interfaces";
+import { Task } from "@/interfaces";
 import { Link } from "react-router-dom";
 import InfosTask from "./InfosTask";
 import ActionsTaskItem from "./ActionsTaskItem";

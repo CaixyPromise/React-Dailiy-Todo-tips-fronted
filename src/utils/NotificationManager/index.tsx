@@ -1,4 +1,42 @@
-import {Notification, NotificationTableType} from "./typings";
+// import {NotificationTableType, Notification} from "./typings";
+
+import {message} from "antd";
+import boolean from "async-validator/dist-types/validator/boolean";
+import {bool} from "prop-types";
+
+export interface NotificationTableType
+{
+    [key: string]: NodeJS.Timeout;
+}
+
+// 提醒任务的结构定义
+export interface Notification
+{
+    taskId: string;  // 任务ID
+    eventTime: number;  // 任务触发时间，格式为 "YYYY-MM-DD HH:mm:ss"
+    title: string; // 任务标题
+    iconUrl?: string; // 任务图标URL，用于在通知中心显示
+    linkUrl?: string; // 任务关联链接，点击可跳转
+    content?: string; // 任务详细内容，用于在通知中心显示
+    callback?: () => void; // 任务完成后的回调函数
+}
+
+// 通知中心管理的通知项结构定义
+export interface NotificationItem
+{
+    taskId: string;  // 任务ID
+    eventTimeFormatted: string;  // 格式化后的任务触发时间
+    eventDateTime: Date;  // 任务触发时间（Date对象）
+    eventId: string;  // 通知ID
+    title: string;  // 通知标题
+    type: string;  // 事件类型，如 "任务完成"、"任务失败"
+    status?: string;  // 事件状态，如 "已读"、"未读"
+    iconUrl?: string;  // 事件图标URL，用于在通知中心显示
+    linkUrl?: string;  // 事件关联链接，点击可跳转
+    content: string;  // 事件详细内容
+    isNotified?: boolean;  // 是否已向用户发送了通知
+}
+
 
 function Singleton<T extends { new(...args: any[]): {} }>(constructor: T)
 {
@@ -44,7 +82,7 @@ class Index
         if (!("Notification" in window))
         {
             // 检查浏览器是否支持桌面通知
-            alert("此浏览器不支持桌面通知");
+            message.error("此浏览器不支持桌面通知");
             return false;
         }
         if (Notification.permission !== "granted")
@@ -52,7 +90,7 @@ class Index
             // 我们需要请求用户的许可
             Notification.requestPermission().catch((error:any) =>
             {
-                alert("无法获取通知权限，无法发送待办通知");
+                message.error("无法获取通知权限，无法发送待办通知");
             });
             return false;
         }
@@ -68,18 +106,21 @@ class Index
      * @since 2024/1/25 17:15
      * @version 1.0
      */
-    private _deleteTask(taskId: string): void
+    public cancelNotification(taskId: string): boolean
     {
         //  清除定时器
         if (this.NotificationTable[taskId])
         {
             clearTimeout(this.NotificationTable[taskId])
+            // 删除定时器map里的定时器
+            delete this.NotificationTable[taskId];
+            // 删除任务id集合里的任务id
+            this.TaskIdSet.delete(taskId)
+            return true
         }
-        // 删除定时器map里的定时器
-        delete this.NotificationTable[taskId];
-        // 删除任务id集合里的任务id
-        this.TaskIdSet.delete(taskId)
-        console.log("删除任务: " + taskId + "on: " + Date.now().toString())
+        else {
+            return false
+        }
     }
 
     /**
@@ -89,12 +130,18 @@ class Index
      * @since 2024/1/25 17:16
      * @version 1.0
      */
-    public registerNotificationAsArray(notifications: Notification[]): void
+    public registerNotificationAsArray(notifications: Notification[]): boolean
     {
+
         for (const notification of notifications)
         {
-            this.registerNotification(notification);
+            const result: boolean = this.registerNotification(notification);
+            if (!result)
+            {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -104,17 +151,16 @@ class Index
      * @since 2024/1/25 17:16
      * @version 1.0
      */
-    public registerNotification(notification: Notification): void
+    public registerNotification(notification: Notification): boolean
     {
         // 如果无法获得通知权限，则不进行通知
         // 如果任务已经被托管，则不进行通知
         // 如果时间已经过了，则不进行通知
-        console.log(this.Permission)
-        console.log(this.TaskIdSet)
         const currentTime = new Date().getTime();
         if (!this.Permission || this.TaskIdSet.has(notification.taskId) || notification.eventTime <= currentTime)
         {
-            return;
+            // message.error("错误: 无法注册通知, 可能通知时间已过或没有通知权限")
+            return false;
         }
         // 注册通知的逻辑
         // 计算定时器需要的时间
@@ -122,11 +168,12 @@ class Index
         // 然后用setTimeout来设置定时器
         this.NotificationTable[notification.taskId] = setTimeout(() =>
         {
-            this.sendNotification(notification)
+            this.sendNotification(notification);
         }, delay);
-        this.TaskIdSet.add(notification.taskId)
-        console.log(this.TaskIdSet)
-        console.log("register notification taskId: " + notification.taskId + "on delay: " + delay)
+        this.TaskIdSet.add(notification.taskId);
+        console.log(this.TaskIdSet);
+        console.log("register notification taskId: " + notification.taskId + "on delay: " + delay);
+        return true;
         // 注意：settimeout的回调函数的this指向的是window，所以需要用bind来绑定this
     }
     // endregion
@@ -170,7 +217,7 @@ class Index
             //  todo: 实现发送后端（已关闭）的逻辑
         }
         // 注意：这里需要手动删除定时器，否则定时器会一直存在
-        this._deleteTask(notification.taskId);
+        this.cancelNotification(notification.taskId);
     }
 
     // 任务响应回调函数
@@ -197,4 +244,6 @@ class Index
     // endregion
 }
 
-export default Index;
+export  {
+    Index as NotificationManager
+};

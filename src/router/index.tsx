@@ -9,55 +9,55 @@ import DoneTasks from "@/components/Routes/DoneTasks";
 import React from "react";
 import TodaysTasks from "@/components/Routes/TodaysTasks";
 import ImportantTasks from "@/components/Routes/ImportantTasks";
-import {Home} from "@mui/icons-material";
+import Home from "@/components/Routes/Home";
+
 
 const router = createBrowserRouter([
     {
         path: "/login",
-        element: <LoginForm />
+        element: <LoginForm/>
     },
     {
         path: "/",
-        element: <RequiredLogin children={<App />} />,
+        element: <RequiredLogin children={<App/>}/>,
         children: [
             {
+                path: "",
+                element: <Navigate to="/home"/>
+            },
+            {
                 path: "home",
-                element: <Home />
+                element: <Home/>
             },
             {
                 path: "today",
-                element: <TodaysTasks />
+                element: <TodaysTasks/>
             },
             {
                 path: "important",
-                element: <ImportantTasks />
+                element: <ImportantTasks/>
             },
             {
                 path: "completed",
-                element: <DoneTasks done={true} title="已完成任务列表" />
+                element: <DoneTasks done={true} title="已完成任务列表"/>
             },
             {
                 path: "uncompleted",
-                element: <DoneTasks done={false} title="未完成任务列表" />
+                element: <DoneTasks done={false} title="未完成任务列表"/>
             },
             {
                 path: "results",
-                element: <SearchResults />
+                element: <SearchResults/>
             },
             {
                 path: "dir/:dir",
-                element: <Directory />
+                element: <Directory/>
             },
             {
                 path: "task/:taskId",
-                element: <TaskOnly />
+                element: <TaskOnly/>
             },
-            {
-                path: "*", // Catch-all route for anything else
-                element: <Navigate to="/home" />
-            }
         ]
-        // element:
     }
 ])
 

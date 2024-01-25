@@ -1,7 +1,7 @@
 import React from "react";
 import {useAppDispatch} from "@/store/hooks";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
-import {ReactComponent as StarLine} from "../../../assets/star-line.svg";
+import {ReactComponent as StarLine} from "@/assets/star-line.svg";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
 const BtnMarkAsImportant: React.FC<{
@@ -12,11 +12,11 @@ const BtnMarkAsImportant: React.FC<{
     const dispatch = useAppDispatch();
 
     // 标记为重要任务
-    const markAsImportantHandler = async () =>
+    const markAsImportantHandler = () =>
     {
         try
         {
-            await TaskControllerService.updateStatusUsingPOST({
+            TaskControllerService.updateStatusUsingPOST({
                 taskId: Number(taskId),
                 status: 1
             });

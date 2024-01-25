@@ -1,52 +1,56 @@
 import React from "react";
-import { useAppDispatch } from "@/store/hooks";
-import { tasksActions } from "@/store/modules/Task/Tasks.store";
-import { ReactComponent as SvgX } from "../../../assets/x.svg";
-import { ReactComponent as Check } from "../../../assets/check.svg";
+import {useAppDispatch} from "@/store/hooks";
+import {tasksActions} from "@/store/modules/Task/Tasks.store";
+import {ReactComponent as SvgX} from "@/assets/x.svg";
+import {ReactComponent as Check} from "@/assets/check.svg";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 
 const BtnToggleCompleted: React.FC<{
-  taskCompleted: boolean;
-  taskId: string;
-  isListInView1: boolean;
-}> = ({ taskCompleted, taskId, isListInView1 }) => {
-  const dispatch = useAppDispatch();
+    taskCompleted: boolean;
+    taskId: string;
+    isListInView1: boolean;
+}> = ({ taskCompleted, taskId, isListInView1 }) =>
+{
+    const dispatch = useAppDispatch();
 
-  const toggleTaskCompleted = async (id: string) => {
-    try {
-      await TaskControllerService.updateStatusUsingPOST({
-        taskId: Number(id),
-        status: 0
-      });
-      dispatch(tasksActions.toggleTaskCompleted(id));
-    }catch (e: any)
+    const toggleTaskCompleted = (id: string) =>
     {
-      console.error(e);
-    }
-  };
+        try
+        {
+            TaskControllerService.updateStatusUsingPOST({
+                taskId: Number(id),
+                status: 0
+            });
+            dispatch(tasksActions.toggleTaskCompleted(id));
+        }
+        catch (e: any)
+        {
+            console.error(e);
+        }
+    };
 
-  return (
-    <button
-      title={taskCompleted ? "mark as uncompleted" : "mark as completed"}
-      className={`${
-        taskCompleted
-          ? "bg-emerald-200 text-emerald-800 "
-          : "bg-amber-200 text-amber-800 "
-      } ${isListInView1 ? "mr-4" : "mr-4 order-0"} rounded-full font-medium`}
-      onClick={() => toggleTaskCompleted(taskId)}
-    >
+    return (
+        <button
+            title={taskCompleted ? "标记为未完成状态" : "标记为完成状态"}
+            className={`${
+                taskCompleted
+                    ? "bg-emerald-200 text-emerald-800 "
+                    : "bg-amber-200 text-amber-800 "
+            } ${isListInView1 ? "mr-4" : "mr-4 order-0"} rounded-full font-medium`}
+            onClick={() => toggleTaskCompleted(taskId)}
+        >
       <span className="block py-1 px-3 absolute invisible sm:static sm:visible">
         {taskCompleted ? "已完成" : "未完成"}
       </span>
-      <span className=" sm:hidden w-6 h-6 grid place-items-center">
+            <span className=" sm:hidden w-6 h-6 grid place-items-center">
         {taskCompleted ? (
-          <Check className="w-3 h-3" />
+            <Check className="w-3 h-3"/>
         ) : (
-          <SvgX className="w-3 h-3" />
+            <SvgX className="w-3 h-3"/>
         )}
       </span>
-    </button>
-  );
+        </button>
+    );
 };
 
 export default React.memo(BtnToggleCompleted);

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import {getUserLogin} from "@/store/modules/User/User.store";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
+import Loadings from "@/components/Loading";
 
 interface CheckLoginProps
 {
@@ -20,7 +21,7 @@ const CheckLogin: React.FC<CheckLoginProps> = ({ children }) => {
     const user = useAppSelector((state) => state.user.loginUser);
 
     if (isLoading) {
-        return <div>Loading...</div>; // 或者使用更复杂的加载指示符
+        return <Loadings />; // 或者使用更复杂的加载指示符
     }
 
     if (!user) {

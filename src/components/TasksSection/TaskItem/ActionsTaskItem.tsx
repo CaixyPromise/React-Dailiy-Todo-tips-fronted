@@ -1,9 +1,10 @@
 import React from "react";
-import { Task } from "../../../interfaces";
+import { Task } from "@/interfaces";
 import BtnEditTask from "./BtnEditTask";
 import BtnMarkAsImportant from "./BtnMarkAsImportant";
 import BtnDeleteTask from "./BtnDeleteTask";
 import BtnToggleCompleted from "./BtnToggleCompleted";
+import BtnSettingRemind from "@/components/TasksSection/TaskItem/BtnSettingRemind";
 
 const ActionsTaskItem: React.FC<{ task: Task; isListInView1: boolean }> = ({
   task,
@@ -21,9 +22,15 @@ const ActionsTaskItem: React.FC<{ task: Task; isListInView1: boolean }> = ({
           taskId={task.id}
           isListInView1={isListInView1}
         />
+        <BtnSettingRemind  taskId={task.id}
+                           taskRemind={task.alarm}
+                           targetTime={Date.parse(task.date)}
+                           title={task.title}
+        />
         <BtnMarkAsImportant taskId={task.id} taskImportant={task.important} />
         <BtnDeleteTask taskId={task.id} />
         <BtnEditTask task={task} />
+
       </div>
     </>
   );

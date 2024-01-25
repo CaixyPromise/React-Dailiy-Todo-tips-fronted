@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useAppDispatch } from "../../../store/hooks";
-import { tasksActions } from "../../../store/modules/Task/Tasks.store";
-import { ReactComponent as Trash } from "../../../assets/trash.svg";
-import { ReactComponent as Edit } from "../../../assets/edit.svg";
+import { useAppDispatch } from "@/store/hooks";
+import { tasksActions } from "@/store/modules/Task/Tasks.store";
+import { ReactComponent as Trash } from "@/assets/trash.svg";
+import { ReactComponent as Edit } from "@/assets/edit.svg";
 import ModalConfirm from "../../Utilities/ModalConfirm";
 import ModalDirectory from "../../Utilities/ModalDirectory";
 

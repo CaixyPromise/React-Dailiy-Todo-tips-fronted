@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {Task} from "../../interfaces";
-import {useAppSelector} from "../../store/hooks";
+import {useAppSelector} from "@/store/hooks";
 
 const useTodayTasks = (): Task[] =>
 {

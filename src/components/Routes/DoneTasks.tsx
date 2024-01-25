@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import useCompletedTasks from "../hooks/useCompletedTasks";
 import useDescriptionTitle from "../hooks/useDescriptionTitle";
 import LayoutRoutes from "../Utilities/LayoutRoutes";

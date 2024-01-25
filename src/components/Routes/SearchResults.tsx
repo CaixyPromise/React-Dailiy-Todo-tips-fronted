@@ -13,7 +13,6 @@ const SearchResults: React.FC = () => {
   useEffect(() => {
     const query = searchParams.get("q");
     if (!query) {
-      // se "q" for igual a '' ou "q" não existir
       navigate("/");
     } else {
       setCurrQueryParam(query);
@@ -22,7 +21,7 @@ const SearchResults: React.FC = () => {
 
   const matchedTasks = useSearchQuery(currQueryParam);
 
-  const title = `Results for "${currQueryParam}"`;
+  const title = `查找任务结果 "${currQueryParam}"`;
 
   useDescriptionTitle(title, title);
 

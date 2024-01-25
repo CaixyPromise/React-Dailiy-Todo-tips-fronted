@@ -11,9 +11,10 @@ import TasksDone from "../AccountSection/TasksDone";
 import DeleteTasks from "../AccountSection/DeleteTasks";
 import {BackDrop} from "../hooks/useBackDrop";
 
-const HeaderTasks: React.FC = () => {
+const HeaderTasks: React.FC = () =>
+{
     const dispatch = useAppDispatch();
-    let [BackState, BackSet] = useState(false);
+    let [ BackState, BackSet ] = useState(false);
 
     const date: Date = new Date();
     const year: number = date.getFullYear();
@@ -43,10 +44,12 @@ const HeaderTasks: React.FC = () => {
         .toString()
         .padStart(2, "0")}}`;
 
-    const openMenuHeaderHandler = () => {
+    const openMenuHeaderHandler = () =>
+    {
         dispatch(menusActions.openMenuHeader());
     };
-    const openMenuAccountHandler = () => {
+    const openMenuAccountHandler = () =>
+    {
         dispatch(menusActions.openMenuAccount());
     };
 
@@ -62,7 +65,7 @@ const HeaderTasks: React.FC = () => {
             <SearchField/>
             <div className="text-center">
         <span className="text-slate-600 dark:text-slate-200 uppercase font-bold text-sm block xl:hidden">
-          TODO LIST
+          TO-DO LIST
         </span>
                 <TasksDone/>
             </div>
@@ -73,17 +76,19 @@ const HeaderTasks: React.FC = () => {
                 <BtnAddTask className="hidden xl:block shadow-slate-400  dark:shadow-slate-900 sm:shadow-transparent"/>
                 <button
                     className="block xl:hidden"
-                    onClick={() => {
+                    onClick={() =>
+                    {
                         BackState = true
                         BackSet(true)
-                        setTimeout(() => {
+                        setTimeout(() =>
+                        {
                             localStorage.setItem('Alert', JSON.stringify("Showed"));
                         }, 2000);
 
                     }}
                 >
                     <AppsIcon className="shadow-slate-400 dark:shadow-slate-900 sm:shadow-transparent"
-                              style={{fontSize: 33}}/>
+                              style={{ fontSize: 33 }}/>
                 </button>
                 {BackState && <BackDrop BackState={BackState} BackSet={BackSet}/>}
             </div>

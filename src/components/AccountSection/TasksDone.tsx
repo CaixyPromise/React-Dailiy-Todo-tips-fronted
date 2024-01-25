@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import useCompletedTasks from "../hooks/useCompletedTasks";
 import useTodayTasks from "../hooks/useTodayTasks";
 

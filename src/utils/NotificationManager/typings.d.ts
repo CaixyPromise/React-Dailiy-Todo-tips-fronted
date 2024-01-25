@@ -25,7 +25,6 @@ export interface NotificationItem
     title: string;  // 通知标题
     type: string;  // 事件类型，如 "任务完成"、"任务失败"
     status?: string;  // 事件状态，如 "已读"、"未读"
-    priority?: string;  // 事件优先级，如 "高"、"中"、"低"
     iconUrl?: string;  // 事件图标URL，用于在通知中心显示
     linkUrl?: string;  // 事件关联链接，点击可跳转
     content: string;  // 事件详细内容

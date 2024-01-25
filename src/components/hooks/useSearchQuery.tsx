@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Task } from "../../interfaces";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 
 const useSearchQuery = (searchQuery: string) => {
   const tasks = useAppSelector((state) => state.tasks.tasks);

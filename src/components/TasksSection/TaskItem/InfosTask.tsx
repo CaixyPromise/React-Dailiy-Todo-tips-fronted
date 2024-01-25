@@ -1,6 +1,6 @@
 import React from "react";
 import { Task } from "@/interfaces";
-import { ReactComponent as Calendar } from "../../../assets/date.svg";
+import { ReactComponent as Calendar } from "@/assets/date.svg";
 import useDate from "../../hooks/useDate";
 
 const InfosTask: React.FC<{ task: Task; isListInView1: boolean }> = ({

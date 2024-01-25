@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ReactComponent as Arrow} from "../../../assets/arrow.svg";
+import {ReactComponent as Arrow} from "@/assets/arrow.svg";
 import ContentDirectories from "./ContentDirectories";
 
 const Directories: React.FC<{ classActive: string }> = ({classActive}) =>
