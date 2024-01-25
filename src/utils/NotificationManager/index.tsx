@@ -1,11 +1,10 @@
-import {Notification, NotificationTableType} from "@/utils/NotificationManager/typing";
+import {Notification, NotificationTableType} from "./typings";
 
 function Singleton<T extends { new(...args: any[]): {} }>(constructor: T)
 {
     return class extends constructor
     {
         private static _instance: T;
-
         constructor(...args: any[])
         {
             super(...args);
@@ -19,9 +18,12 @@ function Singleton<T extends { new(...args: any[]): {} }>(constructor: T)
 }
 
 @Singleton
-class NotificationManager
+class Index
 {
-    private Permission: boolean = false;
+    /**
+     * 是否通知权限标志位
+     * */
+    private readonly Permission: boolean = false;
     /**
      *  通知定时器table: 任务id -> 定时器id
      */
@@ -34,7 +36,7 @@ class NotificationManager
     // region 通知功能初始化
     constructor()
     {
-        this._checkNotificationPermission()
+        this.Permission = this._checkNotificationPermission()
     }
 
     private _checkNotificationPermission(): boolean
@@ -48,7 +50,7 @@ class NotificationManager
         if (Notification.permission !== "granted")
         {
             // 我们需要请求用户的许可
-            Notification.requestPermission().catch((error) =>
+            Notification.requestPermission().catch((error:any) =>
             {
                 alert("无法获取通知权限，无法发送待办通知");
             });
@@ -58,44 +60,90 @@ class NotificationManager
     }
 
     // endregion
+    // region 任务注册与销毁
+    /**
+     * 删除任务
+     * @param taskId 任务id
+     * @author CAIXYPROMISE
+     * @since 2024/1/25 17:15
+     * @version 1.0
+     */
     private _deleteTask(taskId: string): void
     {
         //  清除定时器
-        this.NotificationTable[taskId]
-            ? clearTimeout(this.NotificationTable[taskId])
-            : null;
+        if (this.NotificationTable[taskId])
+        {
+            clearTimeout(this.NotificationTable[taskId])
+        }
         // 删除定时器map里的定时器
         delete this.NotificationTable[taskId];
         // 删除任务id集合里的任务id
         this.TaskIdSet.delete(taskId)
+        console.log("删除任务: " + taskId + "on: " + Date.now().toString())
     }
 
+    /**
+     * 注册任务
+     * @param notifications 任务数组：批量注册
+     * @author CAIXYPROMISE
+     * @since 2024/1/25 17:16
+     * @version 1.0
+     */
+    public registerNotificationAsArray(notifications: Notification[]): void
+    {
+        for (const notification of notifications)
+        {
+            this.registerNotification(notification);
+        }
+    }
+
+    /**
+     * 注册任务
+     * @param notification 待注册任务
+     * @author CAIXYPROMISE
+     * @since 2024/1/25 17:16
+     * @version 1.0
+     */
     public registerNotification(notification: Notification): void
     {
         // 如果无法获得通知权限，则不进行通知
         // 如果任务已经被托管，则不进行通知
-        if (!this.Permission || this.TaskIdSet.has(notification.taskId))
+        // 如果时间已经过了，则不进行通知
+        console.log(this.Permission)
+        console.log(this.TaskIdSet)
+        const currentTime = new Date().getTime();
+        if (!this.Permission || this.TaskIdSet.has(notification.taskId) || notification.eventTime <= currentTime)
         {
             return;
         }
         // 注册通知的逻辑
-        // 先把字符串的时间转成settimeout认识的时间
-        const time = new Date(notification.eventTime).getTime();
         // 计算定时器需要的时间
-        const delay = time - new Date().getTime();
-        // 然后用settimeout来设置定时器
+        const delay = notification.eventTime - currentTime;
+        // 然后用setTimeout来设置定时器
         this.NotificationTable[notification.taskId] = setTimeout(() =>
         {
             this.sendNotification(notification)
         }, delay);
         this.TaskIdSet.add(notification.taskId)
+        console.log(this.TaskIdSet)
+        console.log("register notification taskId: " + notification.taskId + "on delay: " + delay)
         // 注意：settimeout的回调函数的this指向的是window，所以需要用bind来绑定this
     }
+    // endregion
 
+    // region 任务发送逻辑
+    /**
+     * 发送通知方法
+     *
+     * @author CAIXYPROMISE
+     * @since 2024/1/25 17:17
+     * @version 1.0
+     */
     public sendNotification(notification: Notification): void
     {
         const notice = new Notification(`待办提醒-${notification.title}`, {
-            body: notification.content,
+            body: notification.content ? notification.content :
+                "Todo-Remind: 你有一条任务待办到达了提醒时间, 点击查看详情:)",
             icon: notification.iconUrl ? notification.iconUrl : "/favicon.ico",
             lang: "zh-CN",
             tag: `待办提醒-${notification.title}`,
@@ -125,17 +173,19 @@ class NotificationManager
         this._deleteTask(notification.taskId);
     }
 
+    // 任务响应回调函数
     private notificationCallback(notification: Notification): void
     {
         // 执行通知的回调函数
-        try {
+        try
+        {
             if (notification.callback)
             {
                 notification.callback();
             }
             else
             {
-                window.open(notification.linkUrl);
+                window.open(notification.linkUrl ? notification.linkUrl : "/");
             }
         }
         catch (error: any)
@@ -143,6 +193,8 @@ class NotificationManager
             console.error(error);
         }
     }
+
+    // endregion
 }
 
-export default NotificationManager;
+export default Index;

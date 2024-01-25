@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { menusActions } from "../../store/modules/Menu/Menu.store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { menusActions } from "@/store/modules/Menu/Menu.store";
 import BtnAddTask from "../Utilities/BtnAddTask";
 import Directories from "./Directories/Directories";
 import NavLinks from "./NavLinks";
@@ -25,8 +25,20 @@ const Menu: React.FC = () => {
       className="left-0"
     >
       <header className="h-full flex flex-col">
-        <h1 className="font-bold uppercase text-center mt-8 text-lg tracking-wide hidden xl:block">
-          ToDo
+        <h1 className="font-bold uppercase text-center mt-8 text-lg tracking-wide hidden xl:block flex items-center "
+            style={{paddingLeft:"70px", paddingBottom: "5px", paddingTop: "10px"}}
+        >
+          <div style={{
+            width: "182px",
+            height: "50px",//对于图片的多变性,很多情况下不给固定高,让图片自适应,避免图片变形失真
+            borderRadius: "5px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+          }}>
+            <img src="/todo-logo.png" alt="logo" className="mr-2" />
+          </div>
         </h1>
         <BtnAddTask className="my-8 mx-4" />
         <NavLinks classActive={classLinkActive} />
