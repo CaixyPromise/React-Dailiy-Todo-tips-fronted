@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
 import {RootState} from "@/store";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import {TaskVO} from "@/services/requests/models/TaskVO";
 import {DirectoriesItem, Task} from "@/interfaces";
-import {TaskDirectoriesVO} from "../../../generated";
+import {TaskDirectoriesVO} from "../../generated";
 // import {Notification} from "@/utils/Index/typings";
 import {NotificationManager} from "@/utils/NotificationManager";
 import {message} from "antd";
@@ -89,7 +89,7 @@ const Home: React.FC = () =>
     {
         fetchTasks();
     }, []);
-    useDescriptionTitle("Organize your tasks", "All tasks");
+    useDescriptionTitle("Organize your tasks", "全部任务");
     return <LayoutRoutes title="全部任务" tasks={tasks}></LayoutRoutes>;
 };
 

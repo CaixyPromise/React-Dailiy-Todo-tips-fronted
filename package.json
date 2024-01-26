@@ -31,6 +31,7 @@
     "react-dom": "^18.2.0",
     "react-firebase-auth": "^1.0.3",
     "react-firebase-hooks": "^5.1.1",
+    "react-helmet": "^6.1.0",
     "react-howler": "^5.2.0",
     "react-icons": "^4.10.1",
     "react-konva": "^18.2.10",

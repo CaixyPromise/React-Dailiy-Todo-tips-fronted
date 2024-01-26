@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Task} from "@/interfaces";
 import {useAppSelector} from "@/store/hooks";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 
 const ImportantTasks: React.FC = () =>
 {

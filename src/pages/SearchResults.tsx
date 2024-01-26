@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import useSearchQuery from "../hooks/useSearchQuery";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
+import useSearchQuery from "../components/hooks/useSearchQuery";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 
 const SearchResults: React.FC = () => {
   const [searchParams] = useSearchParams();

@@ -1,8 +1,8 @@
 import React from "react";
 import { useAppSelector } from "@/store/hooks";
-import useCompletedTasks from "../hooks/useCompletedTasks";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import useCompletedTasks from "../components/hooks/useCompletedTasks";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 
 const DoneTasks: React.FC<{ done: boolean; title: string }> = ({
   done,

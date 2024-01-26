@@ -39,7 +39,6 @@ const Login = () =>
         }
     }
 
-
     return (
         <div className={styles.loginPage}>
             <form className={styles.login} onSubmit={doLogin}>

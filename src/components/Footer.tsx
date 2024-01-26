@@ -1,11 +1,7 @@
 import React from "react";
 import "../index.css"
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TelegramIcon from '@mui/icons-material/Telegram';
 import EmailIcon from '@mui/icons-material/Email';
-import LanguageIcon from '@mui/icons-material/Language';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,7 +22,7 @@ const Transition = React.forwardRef(function Transition(
 
 const Footer: React.FC = () =>
 {
-    const [open, setOpen] = React.useState(false);
+    const [ open, setOpen ] = React.useState(false);
 
     const handleClickOpen = () =>
     {
@@ -55,21 +51,16 @@ const Footer: React.FC = () =>
                     <DialogContent>
                         <footer>
                             <div className="text-center marginer mb-2">
-                                <a href="https://webvave.ir"><LanguageIcon sx={{fontSize: 35}}/></a>
-                                <a href="https://www.linkedin.com/in/ariyan-emami-8b99a3251"><LinkedInIcon
-                                    sx={{fontSize: 35}}/></a>
-                                <a href="https://github.com/ariyan-emi"><GitHubIcon sx={{fontSize: 35}}/></a>
-                                <a href="https://www.instagram.com/ariyan_emi"><InstagramIcon sx={{fontSize: 35}}/></a>
-                                <a href="https://telegram.me/ARIYANEM231"><TelegramIcon sx={{fontSize: 35}}/></a>
-                                <a href="mailto:emami8637@gmail.com"><EmailIcon sx={{fontSize: 35}}/></a>
+                                <a href="https://github.com/caixypromise"><GitHubIcon sx={{ fontSize: 35 }}/></a>
+                                <a href="mailto:caixypromised@gmail.com"><EmailIcon sx={{ fontSize: 35 }}/></a>
                             </div>
                             <div className="text-center text-muted">
-                                <h6 className="copyright-text text-center text-stone">Copyright © 2023 <a
-                                    href="https://webvave.ir">WebVaVe</a> . All
+                                <h6 className="copyright-text text-center text-stone">Copyright © 2024 <a
+                                    href="https://github.com/caixypromise">CAIXYPROMISE</a> . All
                                     rights
                                     reserved |
-                                    Developed and supported by the Ariyan Emami | <a
-                                        href="https://webvave.ir">WebVaVe</a></h6>
+                                    Developed and supported by the CAIXYPROMISE | <a
+                                        href="https://github.com/caixypromise">CAIXYPROMISE</a></h6>
                             </div>
                         </footer>
                     </DialogContent>

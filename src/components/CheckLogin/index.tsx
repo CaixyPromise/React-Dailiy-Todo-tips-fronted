@@ -21,7 +21,7 @@ const CheckLogin: React.FC<CheckLoginProps> = ({ children }) => {
     const user = useAppSelector((state) => state.user.loginUser);
 
     if (isLoading) {
-        return <Loadings />; // 或者使用更复杂的加载指示符
+        return <Loadings />;
     }
 
     if (!user) {

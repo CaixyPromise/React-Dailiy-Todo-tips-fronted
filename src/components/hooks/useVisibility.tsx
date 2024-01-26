@@ -13,14 +13,9 @@ const useVisibility = (elements: HTMLElement[], fnClose?: () => void) =>
             const clickedOutsideElement = elements.every((element) =>
             {
                 if (!element) return false;
-                if (
-                    e.target !== element &&
-                    !element.contains(e.target as HTMLElement)
-                )
-                {
-                    return true;
-                }
-                return false;
+                return e.target !== element &&
+                    !element.contains(e.target as HTMLElement);
+
             });
 
             if (clickedOutsideElement)

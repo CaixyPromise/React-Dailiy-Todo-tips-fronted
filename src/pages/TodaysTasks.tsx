@@ -1,7 +1,7 @@
 import React from "react";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import useTodayTasks from "../hooks/useTodayTasks";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
+import useTodayTasks from "../components/hooks/useTodayTasks";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 
 const TodaysTasks: React.FC = () => {
   const todaysTasks = useTodayTasks();

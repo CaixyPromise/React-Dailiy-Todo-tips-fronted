@@ -1,15 +1,17 @@
 import {useEffect} from "react";
-
-const useDescriptionTitle = (description: string, title: string): void =>
+// @ts-ignore
+import { Helmet } from 'react-helmet';
+const useDescriptionTitle = (description: string, title: string): JSX.Element =>
 {
-    useEffect(() =>
-    {
-        const metaDescription = document.querySelector('meta[name="description"]')!;
-        metaDescription.setAttribute("content", description);
+    useEffect(() => {
+    }, [description, title]);
 
-        const titleElement = document.querySelector("title")!;
-        titleElement.innerText = "To-Do List | " + title;
-    }, [ description, title ]);
+    return (
+        <Helmet>
+            <meta name="description" content={description} />
+            <title>每日待办TodoList | {title}</title>
+        </Helmet>
+    );
 };
 
 export default useDescriptionTitle;

@@ -2,14 +2,14 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import LoginForm from "../pages/LoginForm";
 import RequiredLogin from "../components/CheckLogin";
 import App from "../App";
-import Directory from "@/components/Routes/Directory";
-import TaskOnly from "@/components/Routes/TaskOnly";
-import SearchResults from "@/components/Routes/SearchResults";
-import DoneTasks from "@/components/Routes/DoneTasks";
+import Directory from "@/pages/Directory";
+import TaskOnly from "@/pages/TaskOnly";
+import SearchResults from "@/pages/SearchResults";
+import DoneTasks from "@/pages/DoneTasks";
 import React from "react";
-import TodaysTasks from "@/components/Routes/TodaysTasks";
-import ImportantTasks from "@/components/Routes/ImportantTasks";
-import Home from "@/components/Routes/Home";
+import TodaysTasks from "@/pages/TodaysTasks";
+import ImportantTasks from "@/pages/ImportantTasks";
+import Home from "@/pages/Home";
 
 
 const router = createBrowserRouter([

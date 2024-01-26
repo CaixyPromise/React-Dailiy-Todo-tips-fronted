@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {DirectoriesItem, Task} from "@/interfaces";
 import {useAppSelector} from "@/store/hooks";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import useDescriptionTitle from "../components/hooks/useDescriptionTitle";
+import LayoutRoutes from "../components/Utilities/LayoutRoutes";
 import useDirectoryById from "@/components/hooks/useDirectoryById";
 
 const Directory: React.FC = () =>
@@ -13,7 +13,7 @@ const Directory: React.FC = () =>
     const params = useParams();
     const navigate = useNavigate();
     const currentDirectory = useDirectoryById(params.dir as string);
-    useDescriptionTitle(
+    const Helmet = useDescriptionTitle(
         `任务分类: "${params.dir}"`,
         params.dir ? params.dir + " directory" : ""
     );
@@ -38,10 +38,13 @@ const Directory: React.FC = () =>
     }, [ directories, navigate, params.dir, tasks ]);
 
     return (
-        <LayoutRoutes
-            title={`${currentDirectory?.name && ""} 任务`}
-            tasks={tasksInCurrentDirectory}
-        />
+        <>
+            {Helmet}
+            <LayoutRoutes
+                title={`${currentDirectory?.name && ""} 任务`}
+                tasks={tasksInCurrentDirectory}
+            />
+        </>
     );
 };
 
