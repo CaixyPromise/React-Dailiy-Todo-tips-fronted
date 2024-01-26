@@ -7,7 +7,7 @@ export type TaskVO = {
     completed?: boolean;
     date?: string;
     description?: string;
-    dir?: string;
+    dir?: number;
     id?: number;
     important?: boolean;
     title?: string;

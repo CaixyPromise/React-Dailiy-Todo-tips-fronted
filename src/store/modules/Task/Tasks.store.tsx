@@ -1,51 +1,13 @@
 import {Action, createSlice, Dispatch, MiddlewareAPI, PayloadAction,} from "@reduxjs/toolkit";
-import {Task} from "@/interfaces";
-
-const getSavedDirectories = (): string[] =>
-{
-    let dirList: string[] = [];
-    // 直接找本地缓存里的目录信息
-    const localStorageDir = localStorage.getItem("directories");
-    if (localStorageDir)
-    {
-        dirList = JSON.parse(localStorageDir!);
-        const mainDirExists = dirList.some((dir: string) => dir === "主要的");
-        if (!mainDirExists)
-        {
-            dirList.push("主要的");
-        }
-    }
-    else
-    {
-        dirList.push("主要的");
-    }
-    // 如果没有就从已有的任务里分离目录信息
-    if (localStorage.getItem("tasks"))
-    {
-        const savedTasksList = JSON.parse(localStorage.getItem("tasks")!);
-        const dirNotSaved: string[] = [];
-        savedTasksList.forEach((task: Task) =>
-        {
-            if (!dirList.includes(task.dir))
-            {
-                if (!dirNotSaved.includes(task.dir))
-                {
-                    dirNotSaved.push(task.dir);
-                }
-            }
-        });
-        dirList = [ ...dirList, ...dirNotSaved ];
-    }
-    return dirList;
-};
+import {Directory, Task} from "@/interfaces";
 
 
 const initialState: {
     tasks: Task[];
-    directories: string[];
+    directories: Directory[];
 } = {
     tasks: [],
-    directories: getSavedDirectories(),
+    directories: [],
 };
 
 const tasksSlice = createSlice({
@@ -105,56 +67,45 @@ const tasksSlice = createSlice({
         deleteAllData(state)
         {
             state.tasks = [];
-            state.directories = [ "主要的" ];
+            state.directories = [];
         },
-        addNewDirectory(state, action: PayloadAction<string[]>)
+        addNewDirectory(state, action: PayloadAction<Directory[]>)
         {
-            const newDirectory: string[] = action.payload;
-            newDirectory.forEach((directory) =>
+            const newDirectories = action.payload;
+            newDirectories.forEach((newDir) =>
             {
-                if (directory !== "" && !state.directories.includes(directory))
+                if (!state.directories.find(dir => dir.id === newDir.id))
                 {
-                    state.directories.push(directory);
-                }
-            })
-        },
-        createDirectory(state, action: PayloadAction<string>)
-        {
-            const newDirectory: string = action.payload;
-            const directoryAlreadyExists = state.directories.includes(newDirectory);
-            if (directoryAlreadyExists)
-            {
-                return;
-            }
-            state.directories = [ newDirectory, ...state.directories ];
-        },
-        deleteDirectory(state, action: PayloadAction<string>)
-        {
-            const dirName = action.payload;
-
-            state.directories = state.directories.filter((dir) => dir !== dirName);
-            state.tasks = state.tasks.filter((task) => task.dir !== dirName);
-        },
-        editDirectoryName(
-            state,
-            action: PayloadAction<{ newDirName: string; previousDirName: string }>
-        )
-        {
-            const newDirName: string = action.payload.newDirName;
-            const previousDirName: string = action.payload.previousDirName;
-            const directoryAlreadyExists = state.directories.includes(newDirName);
-            if (directoryAlreadyExists) return;
-
-            const dirIndex = state.directories.indexOf(previousDirName);
-
-            state.directories[dirIndex] = newDirName;
-            state.tasks.forEach((task) =>
-            {
-                if (task.dir === previousDirName)
-                {
-                    task.dir = newDirName;
+                    state.directories.push(newDir);
                 }
             });
+        },
+
+        createDirectory(state, action: PayloadAction<Directory>)
+        {
+            const newDirectory = action.payload;
+            const directoryAlreadyExists = state.directories.some(dir => dir.id === newDirectory.id);
+            if (!directoryAlreadyExists)
+            {
+                state.directories.push(newDirectory);
+            }
+        },
+
+        deleteDirectory(state, action: PayloadAction<number>)
+        {
+            const dirId = action.payload;
+            state.directories = state.directories.filter(dir => dir.id !== dirId);
+            state.tasks = state.tasks.filter(task => task.dir !== dirId);
+        },
+
+        editDirectoryName(state, action: PayloadAction<{ id: number; newName: string }>)
+        {
+            const { id, newName } = action.payload;
+            const directory = state.directories.find(dir => dir.id === id);
+            if (directory)
+            {
+                directory.name = newName;
+            }
         },
     },
 });

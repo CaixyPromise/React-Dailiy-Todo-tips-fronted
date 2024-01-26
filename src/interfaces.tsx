@@ -2,7 +2,7 @@ export interface Task
 {
     id: string;
     title: string;
-    dir: string;
+    dir: number;
     description: string;
     date: string;
     completed: boolean;
@@ -10,3 +10,8 @@ export interface Task
     alarm: boolean
 }
 
+export interface Directory
+{
+    id: number;
+    name: string;
+}

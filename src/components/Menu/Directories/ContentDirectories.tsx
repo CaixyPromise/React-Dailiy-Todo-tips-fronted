@@ -3,30 +3,48 @@ import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalDirectory from "@/components/Utilities/ModalDirectory";
 import ItemDirectory from "./ItemDirectory";
+import {Directory} from "@/interfaces";
+import {DirectoryControllerService} from "@/services/requests/services/DirectoryControllerService";
+import {message} from "antd";
 
 const ContentDirectories: React.FC<{ classActive: string }> = ({
     classActive,
 }) =>
 {
-    const directories = useAppSelector((store) => store.tasks.directories);
+    const directories:Directory[] = useAppSelector((store) => store.tasks.directories);
     const [ modalDirIsShown, setModalDirIsShown ] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
 
-    const createNewDirectoryHandler = (inputValue: string) =>
+    const createNewDirectoryHandler = async (inputValue: string) =>
     {
         const newDirectoryName: string = inputValue.trim();
 
         if (newDirectoryName.length === 0) return;
 
         const directoryDoesNotExist = directories.every(
-            (dir: string) => dir !== newDirectoryName
+            (dir: Directory) => dir.name !== newDirectoryName
         );
 
         if (directoryDoesNotExist)
         {
-            // todo: 实现分组目录的增删查改
-            dispatch(tasksActions.createDirectory(newDirectoryName));
+            try {
+                const response = await DirectoryControllerService.addTaskDirectoriesUsingPOST({
+                    tagName: newDirectoryName
+                })
+                if (response && response.data)
+                {
+                    dispatch(tasksActions.createDirectory({
+                        name: newDirectoryName,
+                        id: response.data
+                    }));
+                    message.error("创建分组信息成功!!")
+                }
+            }
+            catch (e: any)
+            {
+                message.error("创建分组信息失败!!")
+            }
         }
     };
 
@@ -47,8 +65,8 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
             )}
 
             <ul className="max-h-36 overflow-auto">
-                {directories.map((dir: string) => (
-                    <ItemDirectory key={dir} classActive={classActive} dir={dir}/>
+                {directories.map((dir: Directory) => (
+                    <ItemDirectory key={dir.id} classActive={classActive} content={dir.name} id={dir.id}/>
                 ))}
             </ul>
             <button

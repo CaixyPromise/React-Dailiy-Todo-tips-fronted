@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BaseResponse_boolean_ } from '../models/BaseResponse_boolean_';
-import type { BaseResponse_long_ } from '../models/BaseResponse_long_';
-import type { DeleteRequest } from '../models/DeleteRequest';
+import type { BaseResponse_boolean_ } from '@/services/requests';
+import type { BaseResponse_long_ } from '@/services/requests';
+import type { DeleteRequest } from '@/services/requests';
 import type { DirectoryAddRequest } from '../models/DirectoryAddRequest';
 import type { DirectoryUpdateRequest } from '../models/DirectoryUpdateRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
+import type { CancelablePromise } from '@/services/requests';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class DirectoryControllerService {
@@ -18,7 +18,7 @@ export class DirectoryControllerService {
      * @returns any Created
      * @throws ApiError
      */
-    public static addTaskDirectoriesUsingPost3(
+    public static addTaskDirectoriesUsingPOST(
         directoriesItem: DirectoryAddRequest,
     ): CancelablePromise<BaseResponse_long_ | any> {
         return __request(OpenAPI, {
@@ -39,7 +39,7 @@ export class DirectoryControllerService {
      * @returns any Created
      * @throws ApiError
      */
-    public static deleteTasksUsingPost5(
+    public static deleteTasksUsingPOST(
         deleteRequest: DeleteRequest,
     ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
@@ -60,7 +60,7 @@ export class DirectoryControllerService {
      * @returns any Created
      * @throws ApiError
      */
-    public static updateTasksUsingPost5(
+    public static updateTasksUsingPOST(
         updateRequest: DirectoryUpdateRequest,
     ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {

@@ -6,7 +6,7 @@ import {RootState} from "@/store";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import {TaskVO} from "@/services/requests/models/TaskVO";
-import {Task} from "@/interfaces";
+import {Directory, Task} from "@/interfaces";
 import {TaskDirectoriesVO} from "../../../generated";
 // import {Notification} from "@/utils/Index/typings";
 import {NotificationManager} from "@/utils/NotificationManager";
@@ -40,7 +40,8 @@ const Home: React.FC = () =>
                         const taskItem = {
                             id: task.id?.toString() || 'unknown-id',
                             title: task.title || 'unknown-title',
-                            dir: task.dir || 'unknown-dir',
+                            // @ts-ignore
+                            dir: parseInt(task.dir) || -1,
                             description: task.description || 'unknown-description',
                             date: task.date || Date.now().toString(),
                             completed: task.completed || false,
@@ -62,15 +63,14 @@ const Home: React.FC = () =>
                         }
                     }
                 );
-                const convertedDirectories: string[] = []
-                response.data.directories?.forEach(
-                    (dir: TaskDirectoriesVO) =>
-                    {
-                        // @ts-ignore
-                        convertedDirectories.push(dir.name)
-                    }
-                )
+                const convertedDirectories: Directory[] = response.data.directories?.map(
+                    (dir: TaskDirectoriesVO) => ({
+                    // @ts-ignore
+                    id: parseInt(dir.id),
+                    name: dir.name
+                })) || [];
                 const notifications = new NotificationManager();
+                console.log(convertedDirectories)
                 notifications.registerNotificationAsArray(needAlarmSet);
                 dispatch(tasksActions.addNewTaskArray(convertedTasks));
                 dispatch(tasksActions.addNewDirectory(convertedDirectories));
