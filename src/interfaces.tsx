@@ -10,7 +10,7 @@ export interface Task
     alarm: boolean
 }
 
-export interface Directory
+export interface DirectoriesItem
 {
     id: string;
     name: string;

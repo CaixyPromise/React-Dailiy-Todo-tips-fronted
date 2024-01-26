@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {Directory, Task} from "@/interfaces";
+import {DirectoriesItem, Task} from "@/interfaces";
 import {useAppSelector} from "@/store/hooks";
 import Modal from "./Modal";
 
@@ -194,7 +194,7 @@ const ModalCreateTask: React.FC<{
                         value={selectedDirectory}
                         onChange={({ target }) => setSelectedDirectory((target.value))}
                     >
-                        {directories.map((dir: Directory) => (
+                        {directories.map((dir: DirectoriesItem) => (
                             <option
                                 key={dir.id}
                                 value={dir.id}

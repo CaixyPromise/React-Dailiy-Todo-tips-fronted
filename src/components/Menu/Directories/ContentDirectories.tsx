@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {tasksActions} from "@/store/modules/Task/Tasks.store";
 import ModalDirectory from "@/components/Utilities/ModalDirectory";
 import ItemDirectory from "./ItemDirectory";
-import {Directory} from "@/interfaces";
+import {DirectoriesItem} from "@/interfaces";
 import {DirectoryControllerService} from "@/services/requests/services/DirectoryControllerService";
 import {message} from "antd";
 
@@ -11,7 +11,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
     classActive,
 }) =>
 {
-    const directories:Directory[] = useAppSelector((store) => store.tasks.directories);
+    const directories:DirectoriesItem[] = useAppSelector((store) => store.tasks.directories);
     const [ modalDirIsShown, setModalDirIsShown ] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
         if (newDirectoryName.length === 0) return;
 
         const directoryDoesNotExist = directories.every(
-            (dir: Directory) => dir.name !== newDirectoryName
+            (dir: DirectoriesItem) => dir.name !== newDirectoryName
         );
 
         if (directoryDoesNotExist)
@@ -65,7 +65,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
             )}
 
             <ul className="max-h-36 overflow-auto">
-                {directories.map((dir: Directory) => (
+                {directories.map((dir: DirectoriesItem) => (
                     <ItemDirectory key={dir.id} classActive={classActive} content={dir.name} id={dir.id}/>
                 ))}
             </ul>

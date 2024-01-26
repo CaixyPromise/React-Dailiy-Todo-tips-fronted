@@ -1,10 +1,10 @@
 import {Action, createSlice, Dispatch, MiddlewareAPI, PayloadAction,} from "@reduxjs/toolkit";
-import {Directory, Task} from "@/interfaces";
+import {DirectoriesItem, Task} from "@/interfaces";
 
 
 const initialState: {
     tasks: Task[];
-    directories: Directory[];
+    directories: DirectoriesItem[];
 } = {
     tasks: [],
     directories: [],
@@ -69,7 +69,7 @@ const tasksSlice = createSlice({
             state.tasks = [];
             state.directories = [];
         },
-        addNewDirectory(state, action: PayloadAction<Directory[]>)
+        addNewDirectory(state, action: PayloadAction<DirectoriesItem[]>)
         {
             const newDirectories = action.payload;
             newDirectories.forEach((newDir) =>
@@ -81,7 +81,7 @@ const tasksSlice = createSlice({
             });
         },
 
-        createDirectory(state, action: PayloadAction<Directory>)
+        createDirectory(state, action: PayloadAction<DirectoriesItem>)
         {
             const newDirectory = action.payload;
             const directoryAlreadyExists = state.directories.some(dir => dir.id === newDirectory.id);

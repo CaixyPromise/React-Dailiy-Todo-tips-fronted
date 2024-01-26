@@ -99,7 +99,7 @@ const ItemDirectory: React.FC<{ id: string; content: string; classActive: string
                 }`}
             >
                 <NavLink
-                    to={`/dir/${content}`}
+                    to={`/dir/${id}`}
                     title={content}
                     className="hover:text-rose-600 dark:hover:text-slate-200 transition text-ellipsis whitespace-nowrap overflow-hidden max-w-[7rem]"
                 >
