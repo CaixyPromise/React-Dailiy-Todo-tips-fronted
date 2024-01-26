@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {Task} from "@/interfaces";
+import {Directory, Task} from "@/interfaces";
 import {useAppSelector} from "@/store/hooks";
 import Modal from "./Modal";
 
@@ -7,7 +7,7 @@ const InputCheckbox: React.FC<{
     label: string;
     isChecked: boolean;
     setChecked: (value: React.SetStateAction<boolean>) => void;
-}> = ({isChecked, setChecked, label}) =>
+}> = ({ isChecked, setChecked, label }) =>
 {
     return (
         <label className="mb-0 flex items-center cursor-pointer">
@@ -33,28 +33,14 @@ const ModalCreateTask: React.FC<{
     task?: Task;
     nameForm: string;
     onConfirm: (task: Task) => void;
-}> = ({onClose, task, nameForm, onConfirm}) =>
+}> = ({ onClose, task, nameForm, onConfirm }) =>
 {
     const directories = useAppSelector((state) => state.tasks.directories);
-    const today: Date = new Date();
-    let day: number = today.getDate();
-    let month: number = today.getMonth() + 1;
-    const year: number = today.getFullYear();
-    if (day < 10)
+
+
+    const formatDateForInput = (isoDateStr?: string) =>
     {
-        day = +("0" + day);
-    }
-    if (month < 10)
-    {
-        month = +("0" + month);
-    }
-
-    const todayDate: string = year + "-" + month + "-" + day;
-    const maxDate: string = year + 1 + "-" + month + "-" + day;
-
-
-    const formatDateForInput = (isoDateStr: string) => {
-        const date = new Date(isoDateStr);
+        const date = isoDateStr ? new Date(isoDateStr) : new Date();
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
@@ -63,8 +49,21 @@ const ModalCreateTask: React.FC<{
 
         return `${year}-${month}-${day}T${hours}:${minutes}`;
     };
+    const formatDateForDateTimeLocal = (dateObj: Date) =>
+    {
+        const year = dateObj.getFullYear();
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const hours = "00";
+        const minutes = "00";
 
-    const [description, setDescription] = useState<string>(() =>
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
+    const todayDate: string = formatDateForDateTimeLocal(new Date());
+    const maxDate: string = formatDateForDateTimeLocal(new Date(new Date().setFullYear(new Date().getFullYear() + 1)));
+
+    const [ description, setDescription ] = useState<string>(() =>
     {
         if (task)
         {
@@ -72,7 +71,7 @@ const ModalCreateTask: React.FC<{
         }
         return "";
     });
-    const [title, setTitle] = useState<string>(() =>
+    const [ title, setTitle ] = useState<string>(() =>
     {
         if (task)
         {
@@ -80,18 +79,18 @@ const ModalCreateTask: React.FC<{
         }
         return "";
     });
-    const [date, setDate] = useState<string>(() =>
+    const [ date, setDate ] = useState<string>(() =>
     {
         if (task)
         {
             return formatDateForInput(task.date);
         }
-        return todayDate;
+        return formatDateForInput();
     });
     const isTitleValid = useRef<Boolean>(false);
     const isDateValid = useRef<Boolean>(false);
 
-    const [isImportant, setIsImportant] = useState<boolean>(() =>
+    const [ isImportant, setIsImportant ] = useState<boolean>(() =>
     {
         if (task)
         {
@@ -100,7 +99,7 @@ const ModalCreateTask: React.FC<{
         return false;
     });
 
-    const [isCompleted, setIsCompleted] = useState<boolean>(() =>
+    const [ isCompleted, setIsCompleted ] = useState<boolean>(() =>
     {
         if (task)
         {
@@ -109,7 +108,7 @@ const ModalCreateTask: React.FC<{
         return false;
     });
 
-    const [isAlarm, setAlarm] = useState<boolean>(() =>
+    const [ isAlarm, setAlarm ] = useState<boolean>(() =>
     {
         if (task)
         {
@@ -118,13 +117,13 @@ const ModalCreateTask: React.FC<{
         return false
     })
 
-    const [selectedDirectory, setSelectedDirectory] = useState<string>(() =>
+    const [ selectedDirectory, setSelectedDirectory ] = useState<string>(() =>
     {
-        if (task)
+        if (task && task.dir)
         {
             return task.dir;
         }
-        return directories[0];
+        return directories[0]?.id || 0; // 默认选择第一个目录的 ID，如果没有目录则为 0
     });
 
     const addNewTaskHandler = (event: React.FormEvent): void =>
@@ -163,7 +162,7 @@ const ModalCreateTask: React.FC<{
                         placeholder="学习; 工作任务"
                         required
                         value={title}
-                        onChange={({target}) => setTitle(target.value)}
+                        onChange={({ target }) => setTitle(target.value)}
                         className="w-full"
                     />
                 </label>
@@ -174,7 +173,7 @@ const ModalCreateTask: React.FC<{
                         className="w-full"
                         value={date}
                         required
-                        onChange={({target}) => setDate(target.value)}
+                        onChange={({ target }) => setDate(target.value)}
                         min={todayDate}
                         max={maxDate}
                     />
@@ -185,7 +184,7 @@ const ModalCreateTask: React.FC<{
                         placeholder="任务描述: 学习? 工作任务?"
                         className="w-full"
                         value={description}
-                        onChange={({target}) => setDescription(target.value)}
+                        onChange={({ target }) => setDescription(target.value)}
                     ></textarea>
                 </label>
                 <label>
@@ -193,15 +192,15 @@ const ModalCreateTask: React.FC<{
                     <select
                         className="block w-full"
                         value={selectedDirectory}
-                        onChange={({target}) => setSelectedDirectory(target.value)}
+                        onChange={({ target }) => setSelectedDirectory((target.value))}
                     >
-                        {directories.map((dir: string) => (
+                        {directories.map((dir: Directory) => (
                             <option
-                                key={dir}
-                                value={dir}
+                                key={dir.id}
+                                value={dir.id}
                                 className="bg-slate-100 dark:bg-slate-800"
                             >
-                                {dir}
+                                {dir.name}
                             </option>
                         ))}
                     </select>

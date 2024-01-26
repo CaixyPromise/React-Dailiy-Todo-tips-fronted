@@ -13,7 +13,7 @@ import type { CancelablePromise } from '@/services/requests';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 import {TaskUpdateStatusRequest} from "@/services/requests/models/TaskUpdateStatusRequest";
-import {BaseResponse_TaskFetchVO_} from "../../../../generated";
+import {BaseResponse_TaskFetchVO_} from "@/services/requests/models/BaseResponse_TaskFetchVO_";
 export class TaskControllerService {
     /**
      * addTasks
@@ -44,8 +44,8 @@ export class TaskControllerService {
      * @throws ApiError
      */
     public static deleteTasksUsingPOST(
-        deleteRequest: DeleteRequest,
-    ): CancelablePromise<BaseResponse_boolean_ | any> {
+        deleteRequest: { id: string },
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/task/delete',
@@ -124,8 +124,8 @@ export class TaskControllerService {
      * @throws ApiError
      */
     public static updateStatusUsingPOST(
-        statusRequest: TaskUpdateStatusRequest,
-    ): CancelablePromise<BaseResponse_boolean_ | any> {
+        statusRequest: { taskId: string; status: number },
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/task/update/status',

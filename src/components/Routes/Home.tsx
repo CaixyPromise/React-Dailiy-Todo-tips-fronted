@@ -40,8 +40,7 @@ const Home: React.FC = () =>
                         const taskItem = {
                             id: task.id?.toString() || 'unknown-id',
                             title: task.title || 'unknown-title',
-                            // @ts-ignore
-                            dir: parseInt(task.dir) || -1,
+                            dir: String(task.dir),
                             description: task.description || 'unknown-description',
                             date: task.date || Date.now().toString(),
                             completed: task.completed || false,
@@ -63,14 +62,15 @@ const Home: React.FC = () =>
                         }
                     }
                 );
+                // @ts-ignore
                 const convertedDirectories: Directory[] = response.data.directories?.map(
                     (dir: TaskDirectoriesVO) => ({
-                    // @ts-ignore
-                    id: parseInt(dir.id),
+                    id: String(dir.id),
                     name: dir.name
                 })) || [];
                 const notifications = new NotificationManager();
-                console.log(convertedDirectories)
+                console.log("convertedTasks: ", convertedTasks)
+                console.log("convertedDirectories: ", convertedDirectories)
                 notifications.registerNotificationAsArray(needAlarmSet);
                 dispatch(tasksActions.addNewTaskArray(convertedTasks));
                 dispatch(tasksActions.addNewDirectory(convertedDirectories));

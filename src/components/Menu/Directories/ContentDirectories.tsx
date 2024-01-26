@@ -38,7 +38,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
                         name: newDirectoryName,
                         id: response.data
                     }));
-                    message.error("创建分组信息成功!!")
+                    message.success("创建分组信息成功!!")
                 }
             }
             catch (e: any)

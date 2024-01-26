@@ -17,7 +17,7 @@ const BtnMarkAsImportant: React.FC<{
         try
         {
             TaskControllerService.updateStatusUsingPOST({
-                taskId: Number(taskId),
+                taskId: (taskId),
                 status: 1
             });
             dispatch(tasksActions.markAsImportant(taskId));

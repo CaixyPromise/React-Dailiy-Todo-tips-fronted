@@ -10,6 +10,7 @@ import {tasksActions} from "./store/modules/Task/Tasks.store";
 import {TaskControllerService} from "@/services/requests/services/TaskControllerService";
 import {TaskAddRequest} from "@/services/requests/models/TaskAddRequest";
 import { Outlet } from "react-router-dom";
+import {message} from "antd";
 
 
 const App: React.FC = () =>
@@ -36,12 +37,19 @@ const App: React.FC = () =>
                 completed: task.completed,
                 important: task.important,
             }
-            await TaskControllerService.addTasksUsingPOST(requestTaskBody);
-            dispatch(tasksActions.addNewTask(task));
+            const response = await TaskControllerService.addTasksUsingPOST(requestTaskBody);
+            if (response && response.data)
+            {
+                dispatch(tasksActions.addNewTask({
+                    id: response.data,
+                    ...requestTaskBody
+                } as Task));
+                message.success("添加成功！！")
+            }
         }
         catch (e: any)
         {
-            console.error(e);
+            message.error("添加失败！！");
         }
     };
 

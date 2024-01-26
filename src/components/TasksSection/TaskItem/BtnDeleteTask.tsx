@@ -15,7 +15,7 @@ const BtnDeleteTask: React.FC<{ taskId: string }> = ({ taskId }) =>
     {
         try
         {
-            TaskControllerService.deleteTasksUsingPOST({ id: Number(taskId) })
+            TaskControllerService.deleteTasksUsingPOST({ id: (taskId) })
             dispatch(tasksActions.removeTask(taskId));
             message.success("删除任务成功")
         }

@@ -91,14 +91,14 @@ const tasksSlice = createSlice({
             }
         },
 
-        deleteDirectory(state, action: PayloadAction<number>)
+        deleteDirectory(state, action: PayloadAction<string>)
         {
             const dirId = action.payload;
             state.directories = state.directories.filter(dir => dir.id !== dirId);
             state.tasks = state.tasks.filter(task => task.dir !== dirId);
         },
 
-        editDirectoryName(state, action: PayloadAction<{ id: number; newName: string }>)
+        editDirectoryName(state, action: PayloadAction<{ id: string; newName: string }>)
         {
             const { id, newName } = action.payload;
             const directory = state.directories.find(dir => dir.id === id);

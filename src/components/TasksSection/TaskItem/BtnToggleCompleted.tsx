@@ -18,7 +18,7 @@ const BtnToggleCompleted: React.FC<{
         try
         {
             TaskControllerService.updateStatusUsingPOST({
-                taskId: Number(id),
+                taskId: (id),
                 status: 0
             });
             dispatch(tasksActions.toggleTaskCompleted(id));

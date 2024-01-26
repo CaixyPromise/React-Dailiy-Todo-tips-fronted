@@ -45,7 +45,7 @@ const BtnSettingRemind: React.FC<RemindProps> = ({ taskId, taskRemind, targetTim
     const updateTaskStatus = async () =>
     {
         await TaskControllerService.updateStatusUsingPOST({
-            taskId: Number(taskId),
+            taskId: (taskId),
             status: 2
         });
         dispatch(tasksActions.toggleTaskNeedRemind(taskId));
@@ -82,7 +82,7 @@ const BtnSettingRemind: React.FC<RemindProps> = ({ taskId, taskRemind, targetTim
         >
             <IconBell className="w-5 h-5 md:w-6 md:h-6 hover-effect"
                       style={{
-                          fill: taskRemind ? "red" : "white",
+                          fill: taskRemind ? "red" : "#9c52ef",
                           borderColor: "black",
                           borderStyle: "solid",
                           border: "3px"

@@ -9,7 +9,7 @@ import ModalDirectory from "../../Utilities/ModalDirectory";
 import {message} from "antd";
 import {DirectoryControllerService} from "@/services/requests/services/DirectoryControllerService";
 
-const ItemDirectory: React.FC<{ id: number; content: string; classActive: string }> = ({
+const ItemDirectory: React.FC<{ id: string; content: string; classActive: string }> = ({
     content,
     classActive,
     id
@@ -30,7 +30,7 @@ const ItemDirectory: React.FC<{ id: number; content: string; classActive: string
 
     const deleteDirectoryHandler = async () =>
     {
-        if (id < 0)
+        if (id.length < 0 || parseInt(id) < 0)
         {
             message.error("错误的操作");
         }

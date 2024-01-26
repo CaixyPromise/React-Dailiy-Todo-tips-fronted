@@ -40,8 +40,8 @@ export class DirectoryControllerService {
      * @throws ApiError
      */
     public static deleteTasksUsingPOST(
-        deleteRequest: DeleteRequest,
-    ): CancelablePromise<BaseResponse_boolean_ | any> {
+        deleteRequest: { id: string },
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/directories/delete',
@@ -61,8 +61,8 @@ export class DirectoryControllerService {
      * @throws ApiError
      */
     public static updateTasksUsingPOST(
-        updateRequest: DirectoryUpdateRequest,
-    ): CancelablePromise<BaseResponse_boolean_ | any> {
+        updateRequest: { id: string; tagName: string },
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/directories/update',

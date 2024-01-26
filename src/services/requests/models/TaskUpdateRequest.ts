@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { TaskAddRequest } from './TaskAddRequest';
 export type TaskUpdateRequest = {
-    id?: number;
+    id?: string;
     task?: TaskAddRequest;
 };
 

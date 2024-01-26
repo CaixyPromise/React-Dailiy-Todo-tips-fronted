@@ -2,7 +2,7 @@ export interface Task
 {
     id: string;
     title: string;
-    dir: number;
+    dir: string;
     description: string;
     date: string;
     completed: boolean;
@@ -12,6 +12,6 @@ export interface Task
 
 export interface Directory
 {
-    id: number;
+    id: string;
     name: string;
 }

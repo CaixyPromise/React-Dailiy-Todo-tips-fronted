@@ -1,11 +1,11 @@
-import {useState, useEffect} from "react";
-import {Task} from "../../interfaces";
+import {useEffect, useState} from "react";
+import {Task} from "@/interfaces";
 import {useAppSelector} from "@/store/hooks";
 
 const useTodayTasks = (): Task[] =>
 {
     const tasks = useAppSelector((state) => state.tasks.tasks);
-    const [todaysTasks, setTodaysTasks] = useState<Task[]>([]);
+    const [ todaysTasks, setTodaysTasks ] = useState<Task[]>([]);
 
     const todayDate = new Date();
     const year = todayDate.getFullYear();
@@ -24,7 +24,7 @@ const useTodayTasks = (): Task[] =>
             return taskDate === todayDateFormat;
         });
         setTodaysTasks(filteredTasks);
-    }, [todayDateFormat, tasks]);
+    }, [ todayDateFormat, tasks ]);
 
     return todaysTasks;
 };
